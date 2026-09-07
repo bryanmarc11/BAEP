@@ -1,7 +1,26 @@
 import { safeText } from "./sanitize.js";
 import { getEvidence, setEvidence, getStatus, setStatus, storageAvailable } from "./storage.js";
+import {
+  backend, fetchAreaEvidence, fetchAreaStatus,
+  addFileEvidence, addLinkEvidence, setIndicatorStatus,
+  signedUrlFor, subscribeToArea, safeUrl, validPath,
+} from "./backend.js";
 
-const MAX_EMBED_BYTES = 4 * 1024 * 1024;
+/**
+ * evidence.js — now backend-aware.
+ *
+ * Previously this module imported only storage.js, so every save went to
+ * localStorage and was invisible to everyone else. backend.js existed but
+ * nothing imported it, which is why "connecting" appeared to do nothing.
+ *
+ * Two modes:
+ *   SHARED  — config.js has a URL + key. Reads and writes go to Supabase.
+ *   LOCAL   — config blank or unreachable. Falls back to localStorage, and
+ *             says so in a banner rather than pretending to be shared.
+ */
+
+const MAX_FILE_BYTES = 25 * 1024 * 1024;   // matches the bucket limit
+const MAX_EMBED_BYTES = 4 * 1024 * 1024;   // local-mode dataURL ceiling
 const STATUS_LABELS = {
   "not-started": "Not Started",
   "in-progress": "In Progress",
@@ -9,6 +28,9 @@ const STATUS_LABELS = {
   "verified": "Verified",
 };
 
+const AREA_ID = document.body.dataset.areaId || "";
+
+let shared = false;          // true once a live read succeeds
 let evidenceStore = getEvidence();
 let statusStore = getStatus();
 let currentDialogPath = null;
@@ -16,25 +38,57 @@ let currentDialogPath = null;
 function uid() {
   return "e" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 }
+
 function fmtDate(iso) {
   try { return new Date(iso).toLocaleString(); } catch (e) { return iso; }
 }
+
 function humanSize(bytes) {
   if (bytes < 1024) return bytes + " B";
   if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
   return (bytes / 1024 / 1024).toFixed(2) + " MB";
 }
+
 function toast(msg, isError) {
   const old = document.getElementById("toast");
   if (old) old.remove();
   const t = document.createElement("div");
   t.id = "toast";
   t.className = "toast";
-  t.setAttribute("role", "status");
+  t.setAttribute("role", isError ? "alert" : "status");
   safeText(t, msg);
   if (isError) t.style.background = "#7a1616";
   document.body.appendChild(t);
-  setTimeout(() => t.remove(), 4200);
+  setTimeout(() => t.remove(), isError ? 9000 : 4200);
+}
+
+function banner(msg, kind) {
+  const b = document.createElement("div");
+  b.className = kind === "error" ? "error-banner" : "banner";
+  b.setAttribute("role", kind === "error" ? "alert" : "status");
+  safeText(b, msg);
+  const main = document.querySelector("main");
+  if (main) main.insertBefore(b, main.firstChild);
+  else document.body.insertBefore(b, document.body.firstChild);
+}
+
+/* ---------- normalisation -------------------------------------------------
+ * Server rows and local rows have different shapes. Render against one shape
+ * so the DOM code does not branch on mode.
+ * -------------------------------------------------------------------------- */
+function normalise(row) {
+  if (row.__local) return row;
+  return {
+    id: row.id,
+    title: row.title,
+    notes: row.notes,
+    added: row.created_at,
+    type: row.kind === "file" ? "upload" : "link",
+    url: row.url || null,
+    storageKey: row.storage_key || null,
+    size: row.size_bytes || 0,
+    filedBy: row.filed_by || "",
+  };
 }
 
 function buildEvidenceItemEl(path, item) {
@@ -42,6 +96,7 @@ function buildEvidenceItemEl(path, item) {
   li.className = "evidence-item";
   const meta = document.createElement("div");
   meta.className = "meta";
+
   const fname = document.createElement("div");
   fname.className = "fname";
   safeText(fname, item.title || "(untitled)");
@@ -50,13 +105,25 @@ function buildEvidenceItemEl(path, item) {
   const tags = document.createElement("div");
   const typeTag = document.createElement("span");
   typeTag.className = "tag";
-  safeText(typeTag, item.type === "link" ? "External Link" : item.type === "embed" ? "Embedded Copy" : "File Reference");
+  safeText(typeTag,
+    item.type === "upload" ? "Uploaded File" :
+    item.type === "link" ? "External Link" :
+    item.type === "embed" ? "Embedded Copy (local only)" : "File Reference");
   tags.appendChild(typeTag);
+
   const dateTag = document.createElement("span");
   dateTag.className = "tag";
   dateTag.style.background = "#555";
   safeText(dateTag, fmtDate(item.added));
   tags.appendChild(dateTag);
+
+  if (item.filedBy) {
+    const byTag = document.createElement("span");
+    byTag.className = "tag";
+    byTag.style.background = "#555";
+    safeText(byTag, "filed by " + item.filedBy);
+    tags.appendChild(byTag);
+  }
   meta.appendChild(tags);
 
   if (item.notes) {
@@ -68,24 +135,46 @@ function buildEvidenceItemEl(path, item) {
 
   const linkRow = document.createElement("div");
   linkRow.style.marginTop = ".3rem";
-  if (item.type === "link") {
-    const a = document.createElement("a");
-    a.href = item.url; a.target = "_blank"; a.rel = "noopener";
-    safeText(a, "Open link ↗");
-    linkRow.appendChild(a);
-  } else if (item.type === "path") {
-    const a = document.createElement("a");
-    a.href = item.path; a.target = "_blank"; a.rel = "noopener";
-    safeText(a, "Open " + item.path + " ↗");
-    linkRow.appendChild(a);
-    const hint = document.createElement("span");
-    hint.className = "hint";
-    safeText(hint, " (relative to this page — file must exist there)");
-    linkRow.appendChild(hint);
+
+  if (item.type === "upload") {
+    // Private bucket: no permanent URL. Mint a signed URL on click.
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn small";
+    safeText(btn, "Open file (" + humanSize(item.size) + ") \u2197");
+    btn.addEventListener("click", async () => {
+      btn.disabled = true;
+      try {
+        const url = await signedUrlFor(item.storageKey, 3600);
+        window.open(url, "_blank", "noopener");
+      } catch (e) {
+        toast("Could not open file: " + e.message, true);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+    linkRow.appendChild(btn);
+  } else if (item.type === "link" || item.type === "path") {
+    // JS-REVIEW finding 1: validate before assigning to href.
+    const href = safeUrl(item.url || item.path);
+    if (href) {
+      const a = document.createElement("a");
+      a.href = href;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      safeText(a, "Open \u2197");
+      linkRow.appendChild(a);
+    } else {
+      const bad = document.createElement("span");
+      bad.className = "hint";
+      safeText(bad, "Unsafe or malformed link withheld: " + String(item.url || item.path));
+      linkRow.appendChild(bad);
+    }
   } else if (item.type === "embed") {
     const a = document.createElement("a");
-    a.href = item.dataUrl; a.download = item.title || "evidence";
-    safeText(a, "Download embedded copy (" + humanSize(item.size || 0) + ") ↗");
+    a.href = item.dataUrl;
+    a.download = item.title || "evidence";
+    safeText(a, "Download embedded copy (" + humanSize(item.size || 0) + ") \u2197");
     linkRow.appendChild(a);
   }
   meta.appendChild(linkRow);
@@ -97,13 +186,23 @@ function buildEvidenceItemEl(path, item) {
   delBtn.type = "button";
   delBtn.className = "btn small btn-danger";
   safeText(delBtn, "Delete");
-  delBtn.addEventListener("click", () => {
-    if (!confirm("Remove this evidence entry (metadata only; the underlying file is untouched)?")) return;
-    evidenceStore[path] = (evidenceStore[path] || []).filter((x) => x.id !== item.id);
-    setEvidence(evidenceStore);
-    renderBlock(path);
-    document.dispatchEvent(new CustomEvent("bsess:evidence-changed"));
-  });
+
+  if (shared) {
+    // Append-only by design. Explain rather than offer a button that fails.
+    delBtn.disabled = true;
+    delBtn.title = "Shared evidence is append-only. Remove it from the Supabase dashboard.";
+  } else {
+    delBtn.addEventListener("click", () => {
+      if (!confirm("Remove this evidence entry (metadata only; the underlying file is untouched)?")) return;
+      evidenceStore[path] = (evidenceStore[path] || []).filter((x) => x.id !== item.id);
+      if (!setEvidence(evidenceStore)) {
+        toast("Could not save: browser storage rejected the write.", true);
+        return;
+      }
+      renderBlock(path);
+      document.dispatchEvent(new CustomEvent("bsess:evidence-changed"));
+    });
+  }
   actions.appendChild(delBtn);
   li.appendChild(actions);
   return li;
@@ -123,7 +222,7 @@ function renderBlock(path) {
   const list = block.querySelector('[data-role="list"]');
   if (list) {
     while (list.firstChild) list.removeChild(list.firstChild);
-    const items = evidenceStore[path] || [];
+    const items = (evidenceStore[path] || []).map(normalise);
     if (!items.length) {
       const li = document.createElement("li");
       li.className = "empty-note";
@@ -144,13 +243,12 @@ function openDialog(path) {
   const dlg = document.getElementById("evidenceDialog");
   if (!dlg) return;
   safeText(document.getElementById("evPathLabel"), path);
-  document.getElementById("evTitle").value = "";
-  document.getElementById("evNotes").value = "";
-  document.getElementById("evUrl").value = "";
-  document.getElementById("evPath").value = "";
-  document.getElementById("evFile").value = "";
+  ["evTitle", "evNotes", "evUrl", "evPath", "evFile"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
   const radios = document.querySelectorAll('input[name="evType"]');
-  radios.forEach((r) => (r.checked = r.value === "path"));
+  radios.forEach((r) => (r.checked = r.value === (shared ? "embed" : "path")));
   toggleTypeFields();
   if (typeof dlg.showModal === "function") dlg.showModal();
   else toast("Your browser does not support the evidence dialog. Please update your browser.", true);
@@ -159,100 +257,224 @@ function openDialog(path) {
 function toggleTypeFields() {
   const checked = document.querySelector('input[name="evType"]:checked');
   const type = checked ? checked.value : "path";
-  document.getElementById("fieldPath").classList.toggle("hidden", type !== "path");
-  document.getElementById("fieldUrl").classList.toggle("hidden", type !== "link");
-  document.getElementById("fieldFile").classList.toggle("hidden", type !== "embed");
+  const set = (id, on) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle("hidden", !on);
+  };
+  set("fieldPath", type === "path");
+  set("fieldUrl", type === "link");
+  set("fieldFile", type === "embed");
 }
 
-function saveFromDialog() {
+async function saveFromDialog() {
+  const saveBtn = document.getElementById("evSave");
   const title = document.getElementById("evTitle").value.trim();
   const notes = document.getElementById("evNotes").value.trim();
   const checked = document.querySelector('input[name="evType"]:checked');
   const type = checked ? checked.value : "path";
-  if (!title) { toast("Please enter a title.", true); return; }
+  const path = currentDialogPath;
 
-  function commit(entry) {
+  if (!title) { toast("Please enter a title.", true); return; }
+  if (shared && !validPath(path)) {
+    toast("This indicator path is not in the expected format: " + path, true);
+    return;
+  }
+
+  if (saveBtn) { saveBtn.disabled = true; safeText(saveBtn, "Saving\u2026"); }
+  const done = (ok, msg) => {
+    if (saveBtn) { saveBtn.disabled = false; safeText(saveBtn, "Save"); }
+    if (ok) {
+      const dlg = document.getElementById("evidenceDialog");
+      if (dlg) dlg.close();
+      renderBlock(path);
+      toast(msg || "Evidence added.");
+      document.dispatchEvent(new CustomEvent("bsess:evidence-changed"));
+    } else {
+      toast(msg, true);
+    }
+  };
+
+  /* ---------------- SHARED MODE ---------------- */
+  if (shared) {
+    try {
+      let row;
+      if (type === "embed") {
+        const file = document.getElementById("evFile").files[0];
+        if (!file) return done(false, "Please choose a file to upload.");
+        if (file.size > MAX_FILE_BYTES) {
+          return done(false, "File is " + humanSize(file.size) + "; the limit is 25 MB.");
+        }
+        row = await addFileEvidence({ path, areaId: AREA_ID, title, notes, filedBy: "", file });
+      } else if (type === "link") {
+        const url = document.getElementById("evUrl").value.trim();
+        if (!url) return done(false, "Please enter a URL.");
+        row = await addLinkEvidence({ path, areaId: AREA_ID, title, notes, filedBy: "", url });
+      } else {
+        // A repo-relative path is stored as an absolute URL against this page,
+        // because the database requires an http(s) URL. On the deployed site
+        // that yields a working link; under file:// it will not, which is why
+        // uploads are the default in shared mode.
+        const p = document.getElementById("evPath").value.trim();
+        if (!p) return done(false, "Please enter a relative file path.");
+        const abs = safeUrl(p);
+        if (!abs) return done(false, "That path cannot be resolved to an http(s) URL. Upload the file instead.");
+        row = await addLinkEvidence({ path, areaId: AREA_ID, title, notes, filedBy: "", url: abs });
+      }
+      (evidenceStore[path] = evidenceStore[path] || []).push(row);
+      return done(true, "Evidence saved to the shared database.");
+    } catch (e) {
+      console.error("[BSESS] shared save failed", e);
+      return done(false, "Could not save to the shared database: " + (e.message || e));
+    }
+  }
+
+  /* ---------------- LOCAL MODE ---------------- */
+  const commit = (entry) => {
     entry.id = uid();
     entry.added = new Date().toISOString();
     entry.title = title;
     entry.notes = notes;
     entry.type = type;
-    evidenceStore[currentDialogPath] = evidenceStore[currentDialogPath] || [];
-    evidenceStore[currentDialogPath].push(entry);
-    setEvidence(evidenceStore);
-    document.getElementById("evidenceDialog").close();
-    renderBlock(currentDialogPath);
-    toast("Evidence added.");
-    document.dispatchEvent(new CustomEvent("bsess:evidence-changed"));
-  }
+    entry.__local = true;
+    (evidenceStore[path] = evidenceStore[path] || []).push(entry);
+    // JS-REVIEW finding 2: a failed write must not report success.
+    if (!setEvidence(evidenceStore)) {
+      evidenceStore[path].pop();
+      return done(false,
+        "NOT SAVED. Browser storage refused the write, usually because the " +
+        "quota is full. Nothing was recorded. Use a smaller file or configure " +
+        "the shared database.");
+    }
+    return done(true, "Evidence added (local to this browser only).");
+  };
 
   try {
     if (type === "link") {
       const url = document.getElementById("evUrl").value.trim();
-      if (!url) { toast("Please enter a URL.", true); return; }
-      commit({ url });
-    } else if (type === "path") {
-      const p = document.getElementById("evPath").value.trim();
-      if (!p) { toast("Please enter a relative file path.", true); return; }
-      commit({ path: p });
-    } else if (type === "embed") {
-      const fileInput = document.getElementById("evFile");
-      const file = fileInput.files[0];
-      if (!file) { toast("Please choose a file to embed.", true); return; }
-      if (file.size > MAX_EMBED_BYTES) {
-        toast("File too large to embed (" + humanSize(file.size) + "). Use File Reference instead.", true);
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = () => commit({ dataUrl: reader.result, size: file.size });
-      reader.onerror = () => toast("Failed to read file.", true);
-      reader.readAsDataURL(file);
+      if (!url) return done(false, "Please enter a URL.");
+      if (!safeUrl(url)) return done(false, "Enter a full http:// or https:// URL.");
+      return commit({ url });
     }
+    if (type === "path") {
+      const p = document.getElementById("evPath").value.trim();
+      if (!p) return done(false, "Please enter a relative file path.");
+      return commit({ path: p });
+    }
+    const file = document.getElementById("evFile").files[0];
+    if (!file) return done(false, "Please choose a file to embed.");
+    if (file.size > MAX_EMBED_BYTES) {
+      return done(false, "File too large to embed (" + humanSize(file.size) + "). Use File Reference instead.");
+    }
+    const reader = new FileReader();
+    reader.onload = () => commit({ dataUrl: reader.result, size: file.size });
+    reader.onerror = () => done(false, "Failed to read file.");
+    reader.readAsDataURL(file);
   } catch (e) {
     console.error("[BSESS] evidence save failed", e);
-    toast("Could not save evidence: " + e.message, true);
+    done(false, "Could not save evidence: " + e.message);
   }
 }
 
-export function initEvidence() {
+async function onStatusChange(e) {
+  const path = e.target.dataset.path;
+  const value = e.target.value;
+  const previous = statusStore[path];
+  statusStore[path] = value;
+  renderBlock(path);
+
+  if (shared) {
+    try {
+      await setIndicatorStatus(path, AREA_ID, value);
+    } catch (err) {
+      statusStore[path] = previous;          // roll back the optimistic update
+      renderBlock(path);
+      toast("Status not saved: " + (err.message || err), true);
+      return;
+    }
+  } else if (!setStatus(statusStore)) {
+    statusStore[path] = previous;
+    renderBlock(path);
+    toast("Status not saved: browser storage rejected the write.", true);
+    return;
+  }
+  document.dispatchEvent(new CustomEvent("bsess:status-changed"));
+}
+
+/** Try the shared backend. Any failure degrades to local mode with a banner. */
+async function tryShared() {
+  if (!backend.configured) {
+    banner("Local-only mode: config.js has no Supabase URL or key, so evidence " +
+           "stays in this browser and is not shared.");
+    return false;
+  }
+  if (!AREA_ID) {
+    banner("This page has no data-area-id, so shared evidence cannot be scoped to an area. " +
+           "Falling back to local-only mode.", "error");
+    return false;
+  }
+  try {
+    const [ev, st] = await Promise.all([fetchAreaEvidence(AREA_ID), fetchAreaStatus(AREA_ID)]);
+    evidenceStore = ev;
+    statusStore = st;
+    shared = true;
+    subscribeToArea(AREA_ID, async () => {
+      try {
+        const [ev2, st2] = await Promise.all([fetchAreaEvidence(AREA_ID), fetchAreaStatus(AREA_ID)]);
+        evidenceStore = ev2;
+        statusStore = st2;
+        renderAllBlocks();
+        computeAndCacheAreaProgress(AREA_ID);
+      } catch (e) { console.warn("[BSESS] live refresh failed", e); }
+    });
+    return true;
+  } catch (e) {
+    console.error("[BSESS] backend unreachable", e);
+    banner("Could not reach the shared database (" + (e.message || e) + "). " +
+           "Working in local-only mode; your edits stay in this browser.", "error");
+    return false;
+  }
+}
+
+export async function initEvidence() {
   document.querySelectorAll(".add-evidence-btn").forEach((btn) => {
     btn.disabled = false;
     btn.addEventListener("click", () => openDialog(btn.dataset.path));
   });
   document.querySelectorAll(".status-select").forEach((sel) => {
     sel.disabled = false;
-    sel.addEventListener("change", (e) => {
-      statusStore[e.target.dataset.path] = e.target.value;
-      setStatus(statusStore);
-      renderBlock(e.target.dataset.path);
-      document.dispatchEvent(new CustomEvent("bsess:status-changed"));
-    });
+    sel.addEventListener("change", onStatusChange);
   });
-  const radios = document.querySelectorAll('input[name="evType"]');
-  radios.forEach((r) => r.addEventListener("change", toggleTypeFields));
+  document.querySelectorAll('input[name="evType"]').forEach((r) =>
+    r.addEventListener("change", toggleTypeFields));
+
   const saveBtn = document.getElementById("evSave");
   if (saveBtn) saveBtn.addEventListener("click", (e) => { e.preventDefault(); saveFromDialog(); });
   const cancelBtn = document.getElementById("evCancel");
-  if (cancelBtn) cancelBtn.addEventListener("click", (e) => { e.preventDefault(); document.getElementById("evidenceDialog").close(); });
+  if (cancelBtn) cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const dlg = document.getElementById("evidenceDialog");
+    if (dlg) dlg.close();
+  });
 
-  renderAllBlocks();
+  renderAllBlocks();                 // paint cached/local data immediately
 
-  if (!storageAvailable) {
-    const banner = document.createElement("div");
-    banner.className = "banner";
-    safeText(
-      banner,
-      "Local storage is unavailable in this browsing context (common under file:// in some browsers). " +
-      "Your edits will not persist after reload. Run serve-offline.sh/.bat for full functionality."
-    );
-    const main = document.querySelector("main");
-    if (main) main.insertBefore(banner, main.firstChild);
+  await tryShared();
+  renderAllBlocks();                 // repaint with shared data
+  computeAndCacheAreaProgress(AREA_ID);
+
+  if (shared) {
+    banner("Shared mode: evidence is stored in the central database and visible " +
+           "to everyone with this link. Entries cannot be deleted from the portal.");
+  } else if (!storageAvailable) {
+    banner("Local storage is unavailable in this browsing context (common under " +
+           "file:// in some browsers). Your edits will not persist after reload.", "error");
   }
 }
 
 const LS_PROGRESS = "bsess_progress_v2";
 
 export function computeAndCacheAreaProgress(areaId) {
+  if (!areaId) return null;
   const leafBlocks = document.querySelectorAll(".ev-block.leaf");
   let total = 0, withEvidence = 0;
   leafBlocks.forEach((block) => {
@@ -265,6 +487,6 @@ export function computeAndCacheAreaProgress(areaId) {
     progress = raw ? JSON.parse(raw) : {};
   } catch (e) { progress = {}; }
   progress[areaId] = { total, withEvidence, updated: new Date().toISOString() };
-  try { localStorage.setItem(LS_PROGRESS, JSON.stringify(progress)); } catch (e) { /* quota errors ignored here */ }
+  try { localStorage.setItem(LS_PROGRESS, JSON.stringify(progress)); } catch (e) { /* quota */ }
   return progress[areaId];
 }

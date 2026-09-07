@@ -15,15 +15,19 @@ function showFatalError(err) {
   else document.body.insertBefore(bar, document.body.firstChild);
 }
 
+// initEvidence is async now, so its rejection must be caught with .catch —
+// a try/catch around the call would miss it entirely.
 function init() {
   try { initDrawer(); } catch (e) { console.warn("[BSESS] drawer init failed", e); }
-  try { initEvidence(); } catch (e) { showFatalError(e); }
+
+  initEvidence().catch(showFatalError);
+
   try { initTreeKeyboardNav(document); } catch (e) { console.warn("[BSESS] keyboard nav init failed", e); }
   try { initPrintButtons(); } catch (e) { console.warn("[BSESS] print buttons init failed", e); }
+
   try {
     const areaId = document.body.dataset.areaId;
     if (areaId) {
-      computeAndCacheAreaProgress(areaId);
       document.addEventListener("bsess:evidence-changed", () => computeAndCacheAreaProgress(areaId));
       document.addEventListener("bsess:status-changed", () => computeAndCacheAreaProgress(areaId));
     }
