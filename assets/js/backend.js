@@ -13,7 +13,7 @@
  * browsable if the survey venue wifi drops.
  */
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { CONFIG } from "../../config.js";
+import { CONFIG } from "./config.js";
 
 // Accept either name: new projects issue a publishable key, older ones an anon key.
 const PUBLIC_KEY = CONFIG && (CONFIG.SUPABASE_PUBLIC_KEY || CONFIG.SUPABASE_ANON_KEY);
