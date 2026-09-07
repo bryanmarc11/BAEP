@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BSESS Accreditation Evidence Portal — AACCUP Ten Areas | Aklan State University</title>
+<meta name="description" content="Official evidence portal for the AACCUP accreditation of the Bachelor of Science in Exercise and Sport Sciences (BSESS) program at Aklan State University. Browse documentary evidence and live completeness status across all ten AACCUP Areas.">
+<link rel="canonical" href="index.html">
+<meta name="theme-color" content="#08421C">
+<meta name="color-scheme" content="light dark">
+
+<!-- Open Graph / Twitter — replace /assets/img/og-campaign-banner.* with the real CHDPS campaign banner export before deploy -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BSESS Accreditation Evidence Portal">
+<meta property="og:title" content="BSESS Accreditation Evidence Portal — AACCUP Ten Areas">
+<meta property="og:description" content="Curated documentary evidence for the AACCUP accreditation of the BSESS program, Aklan State University.">
+<meta property="og:image" content="assets/img/og-campaign-banner.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BSESS Accreditation Evidence Portal">
+<meta name="twitter:description" content="Curated documentary evidence for the AACCUP accreditation of the BSESS program, Aklan State University.">
+<meta name="twitter:image" content="assets/img/og-campaign-banner.jpg">
+
+<!-- Favicon — inline vector mark, no external asset, never distorts -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%2308421C' stroke='%23C99A2E' stroke-width='2'/%3E%3Ctext x='32' y='41' font-family='Georgia,serif' font-size='26' fill='%23FBF9F4' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2308421C'/%3E%3Ctext x='32' y='41' font-family='Georgia,serif' font-size='26' fill='%23FBF9F4' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "name": "Aklan State University",
+      "alternateName": "ASU",
+      "url": "https://asu.edu.ph/",
+      "department": {
+        "@type": "EducationalOrganization",
+        "name": "College of Human Development and Physical Sciences",
+        "alternateName": "CHDPS"
+      }
+    },
+    {
+      "@type": "Organization",
+      "name": "BSESS Accreditation Evidence Portal",
+      "description": "Curated repository of documentary evidence organized against the AACCUP Master Survey Instrument (10 Areas) for the Bachelor of Science in Exercise and Sport Sciences program.",
+      "parentOrganization": "Aklan State University"
+    }
+  ]
+}
+</script>
+
+<style>
+/* ============================================================
+   BSESS Accreditation Evidence Portal — Landing screen
+   Hand-written, dependency-free CSS. No frameworks, no CDN.
+   ============================================================ */
+:root{
+  --green-900:#f8f8f8;
+  --green-800:#e16a14;
+  --green-700:#0B6E2D;
+  --green-600:#157A3C;
+  --green-100:#E7F1E9;
+  --gold-600:#A9791E;
+  --gold-500:#C99A2E;
+  --gold-200:#F1E3BE;
+  --orange-600:#C2410C;
+  --orange-500:#EA580C;
+  --orange-100:#FCE7DA;
+  --ink:#12210F;
+  --ink-soft:#3A4A37;
+  --paper:#FBF9F4;
+  --surface:#FFFFFF;
+  --line:#E3DFD3;
+  --line-strong:#CFC9B8;
+  --focus:#C2410C;
+  --radius:14px;
+  --shadow-1:0 1px 2px rgba(18,33,15,.06),0 1px 1px rgba(18,33,15,.04);
+  --shadow-2:0 8px 24px rgba(18,33,15,.10),0 2px 6px rgba(18,33,15,.06);
+  --maxw:1240px;
+  --dur:220ms;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  font-size:16px;
+}
+@media (min-width:1600px){:root{font-size:17px;}}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.5;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+button{font:inherit;}
+
+/* Focus ring — WCAG AA visible, 2px, orange-600, never suppressed */
+:focus-visible{
+  outline:2px solid var(--focus);
+  outline-offset:2px;
+  border-radius:6px;
+}
+a:focus,button:focus{outline:none;} /* fallback removed; :focus-visible governs */
+
+/* Skip link */
+.skip-link{
+  position:absolute;
+  left:-999px;
+  top:0;
+  background:var(--green-800);
+  color:#fff;
+  padding:.75rem 1.1rem;
+  z-index:1000;
+  border-radius:0 0 8px 0;
+  font-weight:600;
+}
+.skip-link:focus{left:0;}
+
+.visually-hidden{
+  position:absolute!important;
+  width:1px;height:1px;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  white-space:nowrap;
+}
+
+/* ---------- Utility bar ---------- */
+.utility-bar{
+  background:var(--green-700);
+  color:#EDE9DA;
+  font-size:.8125rem;
+}
+.utility-bar .wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:.4rem 1.25rem;
+  display:flex;
+  gap:1rem;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.utility-bar a{
+  color:#EDE9DA;
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+}
+.utility-bar a:hover{border-bottom-color:var(--gold-500);}
+
+/* ---------- Header / masthead ---------- */
+.masthead{
+  background:var(--surface);
+  border-bottom:1px solid var(--line);
+}
+.masthead .wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:1.1rem 1.25rem;
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+.brand-lockup{
+  display:flex;
+  align-items:center;
+  gap:.85rem;
+  min-width:0;
+  flex:1 1 320px;
+}
+.brand-lockup svg{
+  flex-shrink:0;
+  width:52px;height:52px;
+}
+.brand-lockup .divider{
+  width:1px;
+  height:40px;
+  background:var(--line-strong);
+  flex-shrink:0;
+}
+.brand-text h2{
+  margin:0;
+  font-size:.95rem;
+  font-weight:700;
+  color:var(--green-800);
+  letter-spacing:.01em;
+}
+.brand-text p{
+  margin:.1rem 0 0;
+  font-size:.78rem;
+  color:var(--ink-soft);
+}
+.masthead-actions{
+  display:flex;
+  gap:.6rem;
+  flex-wrap:wrap;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  min-height:44px;
+  padding:.55rem 1rem;
+  border-radius:10px;
+  border:1px solid var(--line-strong);
+  background:var(--surface);
+  color:var(--green-800);
+  font-weight:600;
+  font-size:.875rem;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease);
+}
+.btn:hover{background:var(--green-100);border-color:var(--green-600);}
+.btn.primary{
+  background:var(--green-800);
+  border-color:var(--green-800);
+  color:#fff;
+}
+.btn.primary:hover{background:var(--green-700);}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(1200px 480px at 82% -10%, rgba(201,154,46,.28), transparent 60%),
+    linear-gradient(155deg,var(--green-700) 0%, var(--green-800) 46%, var(--green-700) 100%);
+  color:#F3EFE1;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0 0;
+  height:6px;
+  background:linear-gradient(90deg,var(--gold-500),var(--orange-500) 55%,var(--orange-600));
+}
+.hero .wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:clamp(2.4rem,6vw,4.5rem) 1.25rem clamp(2.8rem,7vw,5rem);
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:clamp(1.5rem,4vw,3rem);
+  align-items:center;
+}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;}
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--gold-200);
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);
+  padding:.35rem .7rem;
+  border-radius:999px;
+  margin-bottom:1rem;
+}
+.hero h1{
+  font-size:clamp(1.9rem,4vw,2.75rem);
+  line-height:1.12;
+  margin:0 0 .7rem;
+  font-weight:800;
+  letter-spacing:-.01em;
+}
+.hero .lede{
+  font-size:clamp(1rem,1.6vw,1.15rem);
+  color:#E4DECB;
+  max-width:46ch;
+  margin:0 0 1.4rem;
+}
+.hero-cta{
+  display:flex;
+  gap:.75rem;
+  flex-wrap:wrap;
+  margin-bottom:1.6rem;
+}
+.hero .btn.on-dark{
+  background:rgba(255,255,255,.06);
+  border-color:rgba(255,255,255,.35);
+  color:#fff;
+}
+.hero .btn.on-dark:hover{background:rgba(255,255,255,.16);}
+.hero .btn.gold{
+  background:linear-gradient(135deg,var(--gold-500),var(--orange-500));
+  border-color:transparent;
+  color:#241300;
+}
+.hero .btn.gold:hover{filter:brightness(1.06);}
+
+.instrument-chip{
+  display:flex;
+  gap:.6rem;
+  align-items:flex-start;
+  font-size:.85rem;
+  color:#D9D2BA;
+  border-top:1px solid rgba(255,255,255,.18);
+  padding-top:1rem;
+  max-width:46ch;
+}
+.instrument-chip svg{flex-shrink:0;margin-top:2px;}
+
+/* Overall progress card inside hero */
+.progress-card{
+  background:rgba(251,249,244,.98);
+  color:var(--ink);
+  border-radius:var(--radius);
+  padding:1.4rem 1.5rem;
+  box-shadow:var(--shadow-2);
+}
+.progress-card h2{
+  margin:0 0 .15rem;
+  font-size:.95rem;
+  font-weight:700;
+  color:var(--green-800);
+}
+.progress-card .sub{
+  margin:0 0 1rem;
+  font-size:.78rem;
+  color:var(--ink-soft);
+}
+.progress-ring-row{
+  display:flex;
+  align-items:center;
+  gap:1.1rem;
+}
+.progress-ring{
+  flex-shrink:0;
+}
+.progress-stat-value{
+  font-size:1.9rem;
+  font-weight:800;
+  color:var(--green-800);
+  line-height:1;
+}
+.progress-stat-label{
+  font-size:.78rem;
+  color:var(--ink-soft);
+  margin-top:.2rem;
+}
+.mini-legend{
+  display:flex;
+  gap:.9rem;
+  margin-top:1.1rem;
+  flex-wrap:wrap;
+  font-size:.74rem;
+  color:var(--ink-soft);
+}
+.mini-legend span{display:inline-flex;align-items:center;gap:.35rem;}
+.mini-legend i{width:9px;height:9px;border-radius:50%;display:inline-block;}
+
+/* ---------- Section framing ---------- */
+main{display:block;}
+.section{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:clamp(2.2rem,5vw,3.5rem) 1.25rem;
+}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-bottom:1.4rem;
+}
+.section-head h2{
+  font-size:clamp(1.3rem,2.4vw,1.65rem);
+  margin:0 0 .3rem;
+  color:var(--green-800);
+  font-weight:800;
+}
+.section-head p{
+  margin:0;
+  color:var(--ink-soft);
+  max-width:60ch;
+  font-size:.92rem;
+}
+
+/* ---------- Area grid ---------- */
+.area-grid{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+  gap:1.1rem;
+}
+@container (min-width: 1024px){
+  .area-grid{grid-template-columns:repeat(5,1fr);}
+}
+.area-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:.7rem;
+  height:100%;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:1.15rem 1.15rem 1.25rem;
+  text-decoration:none;
+  color:var(--ink);
+  box-shadow:var(--shadow-1);
+  transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),border-color var(--dur) var(--ease);
+  min-height:44px;
+}
+.area-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-2);
+  border-color:var(--green-600);
+}
+.area-card:focus-visible{
+  transform:translateY(-3px);
+}
+.area-card .top-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.6rem;
+}
+.area-roman{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:38px;height:38px;
+  border-radius:10px;
+  background:var(--green-100);
+  color:var(--green-800);
+  font-weight:800;
+  font-size:.95rem;
+  flex-shrink:0;
+}
+.status-dot{
+  width:10px;height:10px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+.status-dot.not-visited{background:#C6C1B2;}
+.status-dot.started{background:var(--orange-500);}
+.status-dot.complete{background:var(--green-600);}
+
+.area-card h3{
+  margin:0;
+  font-size:1.02rem;
+  font-weight:700;
+  line-height:1.3;
+  color:var(--green-900);
+}
+.area-meta{
+  font-size:.76rem;
+  color:var(--ink-soft);
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+}
+.area-meta span{white-space:nowrap;}
+.area-progress-track{
+  height:8px;
+  border-radius:999px;
+  background:var(--green-100);
+  overflow:hidden;
+  margin-top:auto;
+}
+.area-progress-fill{
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--green-600),var(--green-800));
+  width:0%;
+  transition:width var(--dur) var(--ease);
+}
+.area-progress-fill.has-gold{
+  background:linear-gradient(90deg,var(--gold-500),var(--orange-500));
+}
+.area-progress-text{
+  display:flex;
+  justify-content:space-between;
+  font-size:.72rem;
+  color:var(--ink-soft);
+  font-weight:600;
+}
+.area-card .go{
+  position:absolute;
+  top:1rem;right:1rem;
+  color:var(--line-strong);
+}
+.area-card:hover .go,.area-card:focus-visible .go{color:var(--orange-600);}
+
+@media (prefers-reduced-motion:reduce){
+  .area-card,.area-progress-fill{transition:none;}
+  .area-card:hover{transform:none;}
+}
+
+/* ---------- About / purpose strip ---------- */
+.purpose-strip{
+  background:var(--green-100);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.purpose-grid{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:clamp(2rem,4vw,3rem) 1.25rem;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.6rem;
+}
+.purpose-item{display:flex;gap:.85rem;align-items:flex-start;}
+.purpose-item svg{flex-shrink:0;color:var(--green-700);margin-top:2px;}
+.purpose-item h3{margin:0 0 .25rem;font-size:.95rem;color:var(--green-7ss00);}
+.purpose-item p{margin:0;font-size:.84rem;color:var(--ink-soft);}
+
+/* ---------- Footer ---------- */
+footer.site-footer{
+  background:var(--green-700);
+  color:#CFC9B8;
+}
+.site-footer .wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:2rem 1.25rem;
+  display:flex;
+  justify-content:space-between;
+  gap:1.5rem;
+  flex-wrap:wrap;
+  font-size:.82rem;
+}
+.site-footer a{color:#E7DFC3;text-decoration:none;}
+.site-footer a:hover{text-decoration:underline;}
+.rating-note{max-width:560px;line-height:1.6;}
+.rating-note table{
+  border-collapse:collapse;
+  margin-top:.6rem;
+  font-size:.78rem;
+}
+.rating-note th,.rating-note td{
+  border:1px solid rgba(255,255,255,.18);
+  padding:.3rem .55rem;
+  text-align:left;
+}
+
+/* ---------- Print stylesheet: clean one-page cover sheet ---------- */
+@media print{
+  .no-print,.utility-bar,.masthead-actions,.hero-cta,.progress-card,.purpose-strip,.site-footer nav,.area-card .go,.skip-link{
+    display:none!important;
+  }
+  body{background:#fff;color:#000;}
+  .hero{background:none;color:#000;padding:0;}
+  .hero::after{display:none;}
+  .hero .wrap{grid-template-columns:1fr;padding:0 0 1rem;}
+  .brand-lockup svg,.instrument-chip svg{filter:none;}
+  .instrument-chip{color:#000;border-color:#000;}
+  .area-grid{grid-template-columns:1fr!important;gap:0;}
+  .area-card{
+    box-shadow:none;border:none;border-bottom:1px solid #999;
+    border-radius:0;padding:.5rem 0;flex-direction:row;align-items:center;gap:.5rem;
+  }
+  .area-card:hover{transform:none;}
+  .area-progress-track{display:none;}
+  .print-index{display:block!important;}
+  a{color:#000;}
+  @page{margin:2cm;}
+}
+.print-index{display:none;}
+
+/* ---------- Dark mode ---------- */
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0E1B0F;
+    --surface:#152417;
+    --ink:#EDE9DA;
+    --ink-soft:#B9B49E;
+    --line:#28371F;
+    --line-strong:#3A4B2B;
+    --green-100:#1C2B1A;
+  }
+  .masthead{background:var(--surface);}
+  .progress-card{background:#1B2A18;color:var(--ink);}
+  .progress-card h2{color:#DCE8D4;}
+  .status-dot.not-visited{background:#5A5544;}
+  .btn{background:var(--surface);color:#EDE9DA;}
+  .btn:hover{background:#1E2E19;}
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<div class="utility-bar no-print">
+  <div class="wrap">
+    <span>AACCUP, Inc. Master Survey Instrument — Program-level accreditation working portal</span>
+    <a href="#rating-scale">Rating scale reference</a>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="brand-lockup">
+      <!-- ASU seal — vector mark, fixed aspect, never stretched, no colour filter -->
+      <picture>
+  <img src="assets/img/asu-seal-208.png"
+       alt="Official seal of Aklan State University"
+       width="52" height="52"
+       fetchpriority="high" decoding="async">
+</picture>
+      <span class="divider" aria-hidden="true"></span>
+      <div class="brand-text">
+        <h2>Bachelor of Science in Exercise and Sport Sciences major in Fitness and Sports Management (BSESS-FSM)</h2>
+        <p>College of Human Development and Performance Sciences · Makato Campus, Aklan State University</p>
+      </div>
+    </div>
+    <div class="masthead-actions no-print">
+      <button type="button" class="btn" id="printBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+        Print index
+      </button>
+      <a class="btn primary" href="#area-grid">Browse the 10 Areas</a>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21l2-7.5L2 9h7z"/></svg>
+          AACCUP Accreditation Instrument
+        </p>
+        <h1 id="hero-heading">BSESS Accreditation<br>Evidence Portal</h1>
+        <p class="lede"></p>
+        <div class="hero-cta">
+          <a class="btn gold" href="#area-grid">
+            Open Area I — start review
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn on-dark" href="#purpose">What this portal is for</a>
+        </div>
+      </div>
+
+      <div class="progress-card" aria-labelledby="progress-heading">
+        <h2 id="progress-heading">Overall evidence completeness</h2>
+        <p class="sub" id="progressSub">Loading locally staged progress…</p>
+        <div class="progress-ring-row">
+          <svg class="progress-ring" width="86" height="86" viewBox="0 0 86 86" role="img" aria-labelledby="ringLabel">
+            <title id="ringLabel">Overall percent of indicators marked complete or verified</title>
+            <circle cx="43" cy="43" r="36" fill="none" stroke="#E7F1E9" stroke-width="10"/>
+            <circle id="ringFill" cx="43" cy="43" r="36" fill="none" stroke="#0B6E2D" stroke-width="10"
+                    stroke-dasharray="226.19" stroke-dashoffset="226.19" stroke-linecap="round" transform="rotate(-90 43 43)"/>
+            <text id="ringPercent" x="43" y="49" text-anchor="middle" font-family="inherit" font-size="18" font-weight="800" fill="#08421C">—</text>
+          </svg>
+          <div>
+            <div class="progress-stat-value" id="statAreasVisited">0 / 10</div>
+            <div class="progress-stat-label">Areas visited this session</div>
+          </div>
+        </div>
+        <div class="mini-legend">
+          <span><i style="background:#C6C1B2"></i> Not yet visited</span>
+          <span><i style="background:#EA580C"></i> In progress</span>
+          <span><i style="background:#157A3C"></i> Complete / verified</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="area-grid-section" aria-labelledby="areas-heading">
+    <div class="section-head">
+      <div>
+        <h2 id="areas-heading">The ten AACCUP Areas</h2>
+        <p>Each card opens that Area's complete Parameter → Section → Indicator → Sub-indicator checklist, with the evidence you've staged tracked live from this device.</p>
+      </div>
+    </div>
+    <ul class="area-grid" id="area-grid" role="list"></ul>
+  </section>
+
+  <section class="purpose-strip" id="purpose" aria-labelledby="purpose-heading">
+    <div class="purpose-grid">
+      <h2 id="purpose-heading" class="visually-hidden">What this portal is for</h2>
+      <div class="purpose-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <div>
+          <h3>Traceable evidence, not loose files</h3>
+          <p>Every Indicator and Sub-indicator carries its own status and evidence trail, so nothing is orphaned in a shared drive.</p>
+        </div>
+      </div>
+      <div class="purpose-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <div>
+          <h3>Live completeness, per Area</h3>
+          <p>Status pills roll up automatically into the percentage shown on each Area card and in the summary above.</p>
+        </div>
+      </div>
+      <div class="purpose-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <div>
+          <h3>Works at the venue, with or without Wi-Fi</h3>
+          <p>Static pages, no backend. Opens from a local server or directly via file:// during the visit itself.</p>
+        </div>
+      </div>
+      <div class="purpose-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/></svg>
+        <div>
+          <h3>Built for the accreditor's eye</h3>
+          <p>Consistent, dignified structure across all ten Areas, matched to the AACCUP Master Survey Instrument line for line.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+
+<!-- Print-only one-page cover sheet: seal, program, area index table, revision date. No nav, no buttons. -->
+<div class="print-index">
+  <h1 style="margin-bottom:.2rem;">BSESS Accreditation Evidence Portal</h1>
+  <p style="margin:0 0 1rem;">College of Human Development and Physical Sciences (CHDPS) · Aklan State University<br>AACCUP, Inc. Master Survey Instrument — Area Index</p>
+  <table style="width:100%;border-collapse:collapse;font-size:.85rem;">
+    <thead>
+      <tr>
+        <th style="border:1px solid #000;padding:.3rem .5rem;text-align:left;">Area</th>
+        <th style="border:1px solid #000;padding:.3rem .5rem;text-align:left;">Title</th>
+        <th style="border:1px solid #000;padding:.3rem .5rem;text-align:right;">Weight</th>
+        <th style="border:1px solid #000;padding:.3rem .5rem;text-align:right;">Parameters</th>
+        <th style="border:1px solid #000;padding:.3rem .5rem;text-align:right;">Indicators &amp; sub-indicators</th>
+      </tr>
+    </thead>
+    <tbody id="printIndexBody"></tbody>
+  </table>
+  <p style="margin-top:1rem;font-size:.8rem;">Printed <span id="printDate"></span> — Revision date: <span id="printRevisionDate">—</span></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- Static manifest: derived from the real AACCUP Master Survey Instrument
+  // baked into area-1.html … area-10.html (see page-sub line on each Area page). ----
+  var AREAS = [
+    {id:"area-1",  roman:"I",    title:"Vision, Mission, Goals and Objectives", weight:2,  parameters:2,  indicators:31,  href:"area-1.html"},
+    {id:"area-2",  roman:"II",   title:"Faculty",                                weight:8,  parameters:8,  indicators:151, href:"area-2.html"},
+    {id:"area-3",  roman:"III",  title:"Curriculum and Instruction",             weight:8,  parameters:6,  indicators:165, href:"area-3.html"},
+    {id:"area-4",  roman:"IV",   title:"Support to Students",                    weight:8,  parameters:5,  indicators:187, href:"area-4.html"},
+    {id:"area-5",  roman:"V",    title:"Research",                               weight:5,  parameters:4,  indicators:59,  href:"area-5.html"},
+    {id:"area-6",  roman:"VI",   title:"Extension and Community Involvement",    weight:4,  parameters:4,  indicators:48,  href:"area-6.html"},
+    {id:"area-7",  roman:"VII",  title:"Library",                                weight:5,  parameters:7,  indicators:98,  href:"area-7.html"},
+    {id:"area-8",  roman:"VIII", title:"Physical Plant and Facilities",          weight:3,  parameters:10, indicators:152, href:"area-8.html"},
+    {id:"area-9",  roman:"IX",   title:"Laboratories",                           weight:4,  parameters:4,  indicators:49,  href:"area-9.html"},
+    {id:"area-10", roman:"X",    title:"Administration",                         weight:5,  parameters:8,  indicators:118, href:"area-10.html"}
+  ];
+  var REVISION_DATE = "2026-09-07";
+
+  function fmtDate(iso){
+    try{
+      var d = new Date(iso + "T00:00:00");
+      if(isNaN(d.getTime())) return iso;
+      return d.toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
+    }catch(e){ return iso; }
+  }
+
+  // ---- Defensive read of the same progress cache the Area pages maintain.
+  // Never throws; unknown/missing shapes degrade to "not visited" silently. ----
+  function readProgressCache(){
+    var out = {};
+    try{
+      if(typeof window.localStorage === "undefined") return out;
+      var raw = window.localStorage.getItem("bsess_progress_v2");
+      if(!raw) return out;
+      var parsed = JSON.parse(raw);
+      if(parsed && typeof parsed === "object") out = parsed;
+    }catch(e){ /* localStorage unavailable or corrupt — fall back silently */ }
+    return out;
+  }
+
+  function extractAreaStats(entry, totalIndicators){
+    // Accept a few plausible cache shapes without assuming one true schema.
+    var total = totalIndicators, complete = 0, verified = 0, inProgress = 0, visited = false;
+    if(entry && typeof entry === "object"){
+      visited = true;
+      if(typeof entry.total === "number" && entry.total > 0) total = entry.total;
+      if(typeof entry.complete === "number") complete = entry.complete;
+      if(typeof entry.verified === "number") verified = entry.verified;
+      if(typeof entry.inProgress === "number") inProgress = entry.inProgress;
+      if(typeof entry.percent === "number" && !complete && !verified){
+        complete = Math.round((entry.percent/100) * total);
+      }
+    }
+    var done = complete + verified;
+    var pct = total > 0 ? Math.min(100, Math.round((done/total)*100)) : 0;
+    return {visited:visited, total:total, done:done, inProgress:inProgress, pct:pct};
+  }
+
+  function buildAreaCard(area, stats){
+    var li = document.createElement("li");
+
+    var a = document.createElement("a");
+    a.className = "area-card";
+    a.href = area.href;
+
+    var top = document.createElement("div");
+    top.className = "top-row";
+
+    var badge = document.createElement("span");
+    badge.className = "area-roman";
+    badge.textContent = area.roman;
+    badge.setAttribute("aria-hidden","true");
+
+    var dot = document.createElement("span");
+    dot.className = "status-dot " + (!stats.visited ? "not-visited" : (stats.pct >= 100 ? "complete" : "started"));
+
+    top.appendChild(badge);
+    top.appendChild(dot);
+
+    var h3 = document.createElement("h3");
+    h3.textContent = "Area " + area.roman + " — " + area.title;
+
+    var meta = document.createElement("div");
+    meta.className = "area-meta";
+    meta.innerHTML =
+      "<span>Weight " + area.weight + "</span>" +
+      "<span>&middot;</span><span>" + area.parameters + " Parameters</span>" +
+      "<span>&middot;</span><span>" + area.indicators + " Indicators</span>";
+
+    var track = document.createElement("div");
+    track.className = "area-progress-track";
+    var fill = document.createElement("div");
+    fill.className = "area-progress-fill" + (stats.visited && stats.pct > 0 && stats.pct < 100 ? " has-gold" : "");
+    fill.style.width = (stats.visited ? stats.pct : 0) + "%";
+    track.appendChild(fill);
+
+    var pctText = document.createElement("div");
+    pctText.className = "area-progress-text";
+    var label = stats.visited
+      ? (stats.done + " / " + stats.total + " indicators")
+      : "Not yet visited";
+    pctText.innerHTML = "<span>" + label + "</span><span>" + (stats.visited ? stats.pct + "%" : "—") + "</span>";
+
+    var go = document.createElement("span");
+    go.className = "go";
+    go.setAttribute("aria-hidden","true");
+    go.innerHTML = "<svg width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2'><path d='M5 12h14M13 6l6 6-6 6'/></svg>";
+
+    a.appendChild(top);
+    a.appendChild(h3);
+    a.appendChild(meta);
+    a.appendChild(track);
+    a.appendChild(pctText);
+    a.appendChild(go);
+    li.appendChild(a);
+    return li;
+  }
+
+  function renderAreaGrid(){
+    var grid = document.getElementById("area-grid");
+    if(!grid) return;
+    var cache = readProgressCache();
+    var visitedCount = 0, totalPct = 0, anyVisited = false;
+
+    AREAS.forEach(function(area){
+      var stats = extractAreaStats(cache[area.id], area.indicators);
+      if(stats.visited){ visitedCount++; anyVisited = true; }
+      totalPct += stats.pct;
+      grid.appendChild(buildAreaCard(area, stats));
+    });
+
+    // Overall ring + summary — guarded so a bad cache never breaks layout.
+    try{
+      var overall = anyVisited ? Math.round(totalPct / AREAS.length) : 0;
+      var ring = document.getElementById("ringFill");
+      var pctEl = document.getElementById("ringPercent");
+      var subEl = document.getElementById("progressSub");
+      var visitedEl = document.getElementById("statAreasVisited");
+      var CIRC = 226.19;
+      if(ring){
+        var offset = CIRC - (CIRC * overall / 100);
+        ring.style.strokeDashoffset = anyVisited ? String(offset) : String(CIRC);
+      }
+      if(pctEl) pctEl.textContent = anyVisited ? overall + "%" : "—";
+      if(subEl) subEl.textContent = anyVisited
+        ? "Computed from locally staged evidence on this device."
+        : "No Area has been opened on this device yet — visit an Area to begin tracking.";
+      if(visitedEl) visitedEl.textContent = visitedCount + " / " + AREAS.length;
+    }catch(e){ /* rendering the summary must never break the page */ }
+  }
+
+  function renderPrintIndex(){
+    var body = document.getElementById("printIndexBody");
+    if(!body) return;
+    AREAS.forEach(function(area){
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        "<td style='border:1px solid #000;padding:.3rem .5rem;'>" + area.roman + "</td>" +
+        "<td style='border:1px solid #000;padding:.3rem .5rem;'>" + area.title + "</td>" +
+        "<td style='border:1px solid #000;padding:.3rem .5rem;text-align:right;'>" + area.weight + "</td>" +
+        "<td style='border:1px solid #000;padding:.3rem .5rem;text-align:right;'>" + area.parameters + "</td>" +
+        "<td style='border:1px solid #000;padding:.3rem .5rem;text-align:right;'>" + area.indicators + "</td>";
+      body.appendChild(tr);
+    });
+  }
+
+  function wireControls(){
+    var printBtn = document.getElementById("printBtn");
+    if(printBtn){
+      printBtn.addEventListener("click", function(){
+        try{ window.print(); }catch(e){ /* no-op if print unsupported */ }
+      });
+    }
+  }
+
+  function setRevisionDates(){
+    try{
+      var human = fmtDate(REVISION_DATE);
+      var footerEl = document.getElementById("revisionDate");
+      var printRevEl = document.getElementById("printRevisionDate");
+      var printDateEl = document.getElementById("printDate");
+      if(footerEl) footerEl.textContent = "Revision date: " + human;
+      if(printRevEl) printRevEl.textContent = human;
+      if(printDateEl) printDateEl.textContent = new Date().toLocaleDateString();
+    }catch(e){ /* dates are cosmetic — never block rendering */ }
+  }
+
+  function init(){
+    try{ renderAreaGrid(); }catch(e){ /* keep going even if this fails */ }
+    try{ renderPrintIndex(); }catch(e){}
+    try{ wireControls(); }catch(e){}
+    try{ setRevisionDates(); }catch(e){}
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  }else{
+    init();
+  }
+})();
+</script>
+</body>
+</html>
