@@ -230,14 +230,15 @@ a:focus,button:focus{outline:none;} /* fallback removed; :focus-visible governs 
   overflow: hidden;
   background:
     /* same gold glow accent as before, kept on top for continuity */
-    radial-gradient(1200px 480px at 82% -10%, rgba(201,154,46,.28), transparent 60%),
+    radial-gradient(1200px 480px at 82% -10%, rgba(130, 130, 42, 0.129), transparent 60%),
     /* green veil — same gradient shape/colors as the old flat background,
        now translucent so the banner shows through underneath */
-    linear-gradient(155deg, rgba(11,53,26,.88) 0%, rgba(8,66,28,.82) 46%, rgba(11,53,26,.90) 100%),
+    linear-gradient(155deg, rgba(124, 124, 71, 0.41) 0%, rgba(114, 115, 14, 0.82) 46%, rgba(75, 76, 7, 0.9) 100%),
     url("assets/img/pic.jpg");
   background-size: cover, cover, cover;
   background-position: bottom, top, center;
   background-repeat: no-repeat, no-repeat, no-repeat;
+  
   color: #F3EFE1;
 }
 .hero::after{
