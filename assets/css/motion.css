@@ -1,0 +1,106 @@
+/* ============================================================================
+   motion.css — BSESS Accreditation Evidence Portal
+   Purely additive. Load this AFTER assets/css/style.css (and after
+   section-ux.js's injected styles, if you use that patch too).
+
+   Every animation in this file is disabled for users with
+   prefers-reduced-motion: reduce, per WCAG 2.3.3.
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root { --bsess-ease: cubic-bezier(.4,0,.2,1); }
+
+/* ---- buttons: a small lift on hover, a press-down on click ---- */
+button, .btn {
+  transition: transform 160ms var(--bsess-ease),
+              box-shadow 160ms var(--bsess-ease),
+              border-color 160ms var(--bsess-ease),
+              background 160ms var(--bsess-ease);
+}
+button:hover:not(:disabled), .btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+button:active:not(:disabled), .btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ---- status pill: smooth colour change + a brief pulse on update ---- */
+.status-pill {
+  transition: background-color 220ms var(--bsess-ease);
+}
+.status-pill.bsess-flash {
+  animation: bsess-pulse 520ms var(--bsess-ease);
+}
+@keyframes bsess-pulse {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.14); }
+  100% { transform: scale(1); }
+}
+
+/* ---- progress bars animate their width instead of snapping ---- */
+.bar > span {
+  transition: width 480ms var(--bsess-ease);
+}
+
+/* ---- toast: slides + fades in on arrival ---- */
+.toast {
+  animation: bsess-toast-in 220ms var(--bsess-ease) both;
+}
+@keyframes bsess-toast-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- banners: a gentle drop-in instead of appearing instantly ---- */
+.banner, .error-banner {
+  animation: bsess-banner-in 220ms var(--bsess-ease) both;
+}
+@keyframes bsess-banner-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- evidence rows fade + slide in when (re)rendered ---- */
+.evidence-item.bsess-enter {
+  animation: bsess-item-in 260ms var(--bsess-ease) both;
+}
+@keyframes bsess-item-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- mobile sidebar: slide in from the left instead of popping in ---- */
+@media (max-width: 599px) {
+  nav.sidebar {
+    transform: translateX(-100%);
+    transition: transform 260ms var(--bsess-ease);
+  }
+  nav.sidebar.open {
+    transform: translateX(0);
+  }
+  .overlay {
+    opacity: 0;
+    transition: opacity 220ms var(--bsess-ease);
+  }
+  .overlay.show {
+    opacity: 1;
+  }
+}
+
+/* ---- accordion body: hides overflow only while motion.js is
+        actively animating its height, so content doesn't spill out
+        mid-transition. Removed automatically when the animation ends. ---- */
+details[data-bsess-animating] > .bsess-details-body,
+details[data-bsess-animating] > .param-body {
+  overflow: hidden;
+}
