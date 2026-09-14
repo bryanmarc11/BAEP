@@ -1,3 +1,17 @@
 [build]
   publish = "."
   command = ""
+
+# JS modules must never be served stale. Without this, a browser or the CDN
+# can cache an old evidence.js/backend.js indefinitely, which is exactly how
+# the earlier double-escaped path_shape regex kept failing after it was fixed
+# server-side — the client was still running yesterday's code.
+[[headers]]
+  for = "/assets/js/*.js"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
+  for = "/config.js"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"

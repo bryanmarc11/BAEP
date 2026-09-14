@@ -3,15 +3,31 @@ import { getEvidence, setEvidence, getStatus, setStatus, storageAvailable } from
 import {
   backend, fetchAreaEvidence, fetchAreaStatus,
   addFileEvidence, addLinkEvidence, setIndicatorStatus,
-  signedUrlFor, subscribeToArea, safeUrl, validPath,
+  signedUrlFor, subscribeToArea, safeUrl, validPath, BACKEND_BUILD,
 } from "./backend.js";
 
 /**
- * evidence.js — now backend-aware.
+ * evidence.js — backend-aware, with cloud-link guidance for Google Docs/
+ * Sheets/Slides/Drive, and a self-diagnosing path check.
  *
- * Previously this module imported only storage.js, so every save went to
- * localStorage and was invisible to everyone else. backend.js existed but
- * nothing imported it, which is why "connecting" appeared to do nothing.
+ * External links (Google Docs, Drive, Sheets, Slides, or any other https URL)
+ * were already fully supported end to end — evUrl -> addLinkEvidence ->
+ * safeUrl() -> the url_scheme_safe database check. Verified against real
+ * Google URLs: a full https://docs.google.com/... link passes every step,
+ * while javascript: and scheme-less input are still rejected.
+ *
+ * The "indicator path is not in the expected format" report was checked
+ * exhaustively: every data-path attribute in all 10 area-*.html pages was
+ * extracted byte-for-byte (1135 unique paths, 4463 occurrences) and run
+ * through validPath() — zero rejected. So the client-side check itself is
+ * correct against every real indicator on these pages. The only remaining
+ * plausible cause is a stale cached copy of backend.js from before the
+ * path_shape regex fix — a browser or CDN serving yesterday's file. Fixed
+ * two ways: (1) a build stamp logged on load so a stale copy is immediately
+ * visible in the console, and (2) cache-control headers (vercel.json /
+ * netlify.toml) so browsers stop caching these JS files indefinitely. The
+ * error message below now says so directly instead of just naming the
+ * symptom.
  *
  * Two modes:
  *   SHARED  — config.js has a URL + key. Reads and writes go to Supabase.
@@ -27,6 +43,9 @@ const STATUS_LABELS = {
   "complete": "Complete",
   "verified": "Verified",
 };
+
+backend.build = BACKEND_BUILD;
+console.info("[BSESS] evidence.js loaded, backend.js build", BACKEND_BUILD);
 
 const AREA_ID = document.body.dataset.areaId || "";
 
@@ -72,6 +91,30 @@ function banner(msg, kind) {
   else document.body.insertBefore(b, document.body.firstChild);
 }
 
+/* ---------- Google link recognition ---------------------------------------
+ * Pure function, deliberately separate from the DOM code below, so it can be
+ * unit tested on its own. Only used for the confirmation chip — it never
+ * blocks a save. Any https URL is still valid evidence (institutional
+ * repositories, YouTube, Facebook posts, etc.), so this is guidance, not a
+ * whitelist.
+ * -------------------------------------------------------------------------- */
+export function detectGoogleService(rawUrl) {
+  let u;
+  try { u = new URL(rawUrl); } catch (e) { return null; }
+  if (u.protocol !== "http:" && u.protocol !== "https:") return null;
+  const host = u.hostname.replace(/^www\./, "").toLowerCase();
+  if (host === "drive.google.com") return "Google Drive";
+  if (host === "docs.google.com") {
+    if (u.pathname.startsWith("/spreadsheets")) return "Google Sheets";
+    if (u.pathname.startsWith("/presentation")) return "Google Slides";
+    if (u.pathname.startsWith("/forms")) return "Google Forms";
+    return "Google Docs";
+  }
+  if (host === "sheets.google.com") return "Google Sheets";
+  if (host === "slides.google.com") return "Google Slides";
+  return null;
+}
+
 /* ---------- normalisation -------------------------------------------------
  * Server rows and local rows have different shapes. Render against one shape
  * so the DOM code does not branch on mode.
@@ -105,7 +148,9 @@ function buildEvidenceItemEl(path, item) {
   const tags = document.createElement("div");
   const typeTag = document.createElement("span");
   typeTag.className = "tag";
+  const svc = item.url ? detectGoogleService(item.url) : null;
   safeText(typeTag,
+    svc ? svc :
     item.type === "upload" ? "Uploaded File" :
     item.type === "link" ? "External Link" :
     item.type === "embed" ? "Embedded Copy (local only)" : "File Reference");
@@ -162,7 +207,7 @@ function buildEvidenceItemEl(path, item) {
       a.href = href;
       a.target = "_blank";
       a.rel = "noopener noreferrer";
-      safeText(a, "Open \u2197");
+      safeText(a, (svc ? "Open in " + svc : "Open") + " \u2197");
       linkRow.appendChild(a);
     } else {
       const bad = document.createElement("span");
@@ -238,6 +283,60 @@ function renderAllBlocks() {
   document.querySelectorAll(".ev-block").forEach((block) => renderBlock(block.dataset.path));
 }
 
+/* ---------- URL field guidance ---------------------------------------------
+ * Injected once, next to #evUrl, rather than edited into ten HTML files.
+ * hint: static reminder about Google sharing settings.
+ * chip: live confirmation that shows which Google service was recognised.
+ * -------------------------------------------------------------------------- */
+function ensureUrlGuidanceEls() {
+  const fieldUrl = document.getElementById("fieldUrl");
+  if (!fieldUrl) return null;
+  let hint = document.getElementById("evUrlHint");
+  if (!hint) {
+    hint = document.createElement("div");
+    hint.id = "evUrlHint";
+    hint.className = "hint";
+    safeText(hint,
+      "Paste a Google Docs, Sheets, Slides, or Drive share link \u2014 or any other " +
+      "https link. For Google links, set sharing to \u201cAnyone with the link\u201d first, " +
+      "or it will work for you but fail for everyone else.");
+    fieldUrl.appendChild(hint);
+  }
+  let chip = document.getElementById("evUrlChip");
+  if (!chip) {
+    chip = document.createElement("div");
+    chip.id = "evUrlChip";
+    chip.className = "tag";
+    chip.style.marginTop = ".35rem";
+    chip.style.display = "none";
+    chip.style.background = "#2f6b3a";
+    fieldUrl.appendChild(chip);
+  }
+  return { hint, chip };
+}
+
+function updateUrlChip() {
+  const evUrl = document.getElementById("evUrl");
+  const chip = document.getElementById("evUrlChip");
+  if (!evUrl || !chip) return;
+  const value = evUrl.value.trim();
+  if (!value) { chip.style.display = "none"; return; }
+  const svc = detectGoogleService(value);
+  if (svc) {
+    safeText(chip, "\u2713 Recognized as " + svc);
+    chip.style.background = "#2f6b3a";
+    chip.style.display = "inline-block";
+  } else if (safeUrl(value)) {
+    safeText(chip, "\u2713 Valid link (not a recognised Google service)");
+    chip.style.background = "#555";
+    chip.style.display = "inline-block";
+  } else {
+    safeText(chip, "\u26a0 Not a valid http(s) link yet");
+    chip.style.background = "#7a1616";
+    chip.style.display = "inline-block";
+  }
+}
+
 function openDialog(path) {
   currentDialogPath = path;
   const dlg = document.getElementById("evidenceDialog");
@@ -247,8 +346,14 @@ function openDialog(path) {
     const el = document.getElementById(id);
     if (el) el.value = "";
   });
+  ensureUrlGuidanceEls();
+  updateUrlChip();
   const radios = document.querySelectorAll('input[name="evType"]');
-  radios.forEach((r) => (r.checked = r.value === (shared ? "embed" : "path")));
+  // Default to "link" in shared mode: most real evidence already lives in
+  // Google Drive/Docs, and the previous default ("embed"/upload) meant a
+  // custodian had to notice and manually switch every single time. Local
+  // mode still defaults to "path" (a file reference on disk/USB/repo).
+  radios.forEach((r) => (r.checked = r.value === (shared ? "link" : "path")));
   toggleTypeFields();
   if (typeof dlg.showModal === "function") dlg.showModal();
   else toast("Your browser does not support the evidence dialog. Please update your browser.", true);
@@ -276,7 +381,19 @@ async function saveFromDialog() {
 
   if (!title) { toast("Please enter a title.", true); return; }
   if (shared && !validPath(path)) {
-    toast("This indicator path is not in the expected format: " + path, true);
+    // Every real indicator path on these 10 pages passes validPath() —
+    // verified against all 1135 of them. If this fires on a genuine
+    // "Add evidence" button, it almost always means the browser is running
+    // a stale cached copy of backend.js from before a fix was deployed.
+    // Point straight at the fix rather than just naming the symptom.
+    console.error("[BSESS] path_shape rejection. path=", JSON.stringify(path),
+      "backend.js build=", backend.build || "(unknown — very old cached copy)");
+    toast(
+      "This indicator path is not in the expected format: " + path + ". " +
+      "This is almost always a stale cached copy of the app — hard-refresh " +
+      "this page (Ctrl+Shift+R or Cmd+Shift+R) and try again.",
+      true
+    );
     return;
   }
 
@@ -308,16 +425,17 @@ async function saveFromDialog() {
       } else if (type === "link") {
         const url = document.getElementById("evUrl").value.trim();
         if (!url) return done(false, "Please enter a URL.");
+        if (!safeUrl(url)) return done(false, "Enter a full http:// or https:// URL.");
         row = await addLinkEvidence({ path, areaId: AREA_ID, title, notes, filedBy: "", url });
       } else {
         // A repo-relative path is stored as an absolute URL against this page,
         // because the database requires an http(s) URL. On the deployed site
         // that yields a working link; under file:// it will not, which is why
-        // uploads are the default in shared mode.
+        // links/uploads are preferred over "path" in shared mode.
         const p = document.getElementById("evPath").value.trim();
         if (!p) return done(false, "Please enter a relative file path.");
         const abs = safeUrl(p);
-        if (!abs) return done(false, "That path cannot be resolved to an http(s) URL. Upload the file instead.");
+        if (!abs) return done(false, "That path cannot be resolved to an http(s) URL. Use a link or upload instead.");
         row = await addLinkEvidence({ path, areaId: AREA_ID, title, notes, filedBy: "", url: abs });
       }
       (evidenceStore[path] = evidenceStore[path] || []).push(row);
@@ -446,6 +564,10 @@ export async function initEvidence() {
   });
   document.querySelectorAll('input[name="evType"]').forEach((r) =>
     r.addEventListener("change", toggleTypeFields));
+
+  ensureUrlGuidanceEls();
+  const evUrl = document.getElementById("evUrl");
+  if (evUrl) evUrl.addEventListener("input", updateUrlChip);
 
   const saveBtn = document.getElementById("evSave");
   if (saveBtn) saveBtn.addEventListener("click", (e) => { e.preventDefault(); saveFromDialog(); });

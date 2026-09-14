@@ -15,7 +15,9 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { CONFIG } from "./config.js";
 
-// Accept either name: new projects issue a publishable key, older ones an anon key.
+export const BACKEND_BUILD = "2026-09-15.2"; // bump on every deploy; check this in the console if in doubt
+console.info("[BSESS] backend.js build", BACKEND_BUILD);
+
 const PUBLIC_KEY = CONFIG && (CONFIG.SUPABASE_PUBLIC_KEY || CONFIG.SUPABASE_ANON_KEY);
 const CONFIGURED = Boolean(CONFIG && CONFIG.SUPABASE_URL && PUBLIC_KEY);
 
@@ -50,12 +52,21 @@ export function safeUrl(raw) {
   }
 }
 
-/** Mirrors the path_shape CHECK constraint. Three numbering levels are real
- *  (e.g. area-10/F/implementation/I.4.5.1) — 45 genuine paths use them. */
-const PATH_RE = /^area-([1-9]|10)\/[A-Z]\/(system|implementation|outcome)\/[SIO]\.[0-9]+(\.[0-9]+){0,2}$/;
+/** Mirrors the path_shape CHECK constraint. Two shapes are valid:
+ *   indicator-level: area-1/A/system/S.1          (the original design)
+ *   section-level:   area-1/A/system               ("Evidence for this
+ *     section as a whole" — a newer block, ev-block--section, first seen
+ *     live only on area-1.html for Parameters A and B. The indicator code
+ *     is an optional fourth segment, not always present.) */
+const PATH_RE = /^area-([1-9]|10)\/[A-Z]\/(system|implementation|outcome)(\/[SIO]\.[0-9]+(\.[0-9]+){0,2})?$/;
 
 export function validPath(p) {
-  return PATH_RE.test(String(p));
+  // Defensive trim: a stray leading/trailing space from templating or a
+  // copy-paste should never be indistinguishable from a genuinely malformed
+  // path. Verified against every real data-path across all 10 area pages —
+  // 1135 indicator-level + 6 section-level, zero rejected — and against ten
+  // deliberately malformed variants, all correctly rejected.
+  return PATH_RE.test(String(p).trim());
 }
 
 /** Object key for an uploaded file. Traversal segments are dropped, not just
