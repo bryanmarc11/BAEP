@@ -200,6 +200,8 @@ details.section-details > summary {
   list-style: none;
   font-weight: 700;
 }
+
+
 details.param-details > summary::-webkit-details-marker,
 details.section-details > summary::-webkit-details-marker,
 details.node-details > summary::-webkit-details-marker { display: none; }
@@ -344,6 +346,8 @@ body:has(.gateway)::before {
   transform: scale(1.06);
 }
 
+
+
 .gateway { position: relative; z-index: 1; min-height: 100dvh; display: grid; place-items: center; }
 .poster { position: relative; width: min(100vw, calc(100dvh * 1.7787)); aspect-ratio: 1921 / 1080; overflow: hidden; background: #dff4bd; box-shadow: 0 0 4rem rgb(0 0 0 / 32%); }
 .poster picture, .poster picture img { width: 100%; height: 100%; }
@@ -402,6 +406,7 @@ body:has(.gateway) .toast button { flex: 0 0 2.75rem; width: 2.75rem; height: 2.
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
 
+
 /* ---------- Appended: semantics/accessibility utilities ----------
    Replaces the only inline style previously left in Area I's markup;
    also raises small controls to the 44px WCAG touch-target minimum. */
@@ -413,3 +418,57 @@ body:has(.gateway) .toast button { flex: 0 0 2.75rem; width: 2.75rem; height: 2.
 @media (max-width: 599px) {
   .sidebar a, .add-evidence-btn, .status-select, .dialog-foot .btn { min-height: 44px; }
 }
+
+/* Developer credit — dashboard bottom */
+.developer-credit {
+  padding: 28px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  background: #101e12;
+  color: #e8eee5;
+  text-align: center;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+.developer-credit p {
+  margin: 0;
+}
+
+.developer-credit__name {
+  font-size: 15px;
+}
+
+.developer-credit__name strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.developer-credit__role {
+  margin-top: 4px !important;
+  color: #c0cbb9;
+  font-size: 14px;
+}
+
+.developer-credit__portfolio {
+  margin-top: 10px !important;
+  color: #f6a04d;
+  font-size: 14px;
+}
+
+.developer-credit__portfolio a {
+  display: inline-block;
+  padding: 8px 12px;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.developer-credit__portfolio a:hover {
+  color: #ffffff;
+}
+
+.developer-credit__portfolio a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+

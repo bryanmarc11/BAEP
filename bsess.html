@@ -457,7 +457,6 @@ main{display:block;}
   flex-shrink:0;
 }
 .status-dot.not-visited{background:#C6C1B2;}
-.status-dot.started{background:var(--orange-500);}
 .status-dot.complete{background:var(--green-600);}
 
 .area-card h3{
@@ -499,12 +498,6 @@ main{display:block;}
   color:var(--ink-soft);
   font-weight:600;
 }
-.area-card .go{
-  position:absolute;
-  top:1rem;right:1rem;
-  color:var(--line-strong);
-}
-.area-card:hover .go,.area-card:focus-visible .go{color:var(--orange-600);}
 
 @media (prefers-reduced-motion:reduce){
   .area-card,.area-progress-fill{transition:none;}
@@ -601,6 +594,97 @@ footer.site-footer{
   .btn{background:var(--surface);color:#EDE9DA;}
   .btn:hover{background:#1E2E19;}
 }
+
+/* Developer credit */
+.developer-credit {
+  padding: 28px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  background: #101e12;
+  color: #e8eee5;
+  text-align: center;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+.developer-credit p {
+  margin: 0;
+}
+
+.developer-credit__name {
+  font-size: 10px;
+}
+
+.developer-credit__name strong {
+  color: #ffffff;
+  font-weight: 300;
+}
+
+.developer-credit .developer-credit__role {
+  margin-top: 4px;
+  color: #c0cbb9;
+  font-size: 14px;
+}
+
+.developer-credit .developer-credit__portfolio {
+  margin-top: 10px;
+  color: #f6a04d;
+  font-size: 14px;
+}
+
+.developer-credit__portfolio a {
+  display: inline-block;
+  padding: 8px 12px;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.developer-credit__portfolio a:hover {
+  color: #ffffff;
+}
+
+.developer-credit__portfolio a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+/* Developer footer — tighter spacing */
+footer.developer-credit {
+  margin: 0;
+  padding: 5px 5px;
+  text-align: left;
+  line-height: 1;
+}
+
+footer.developer-credit p {
+  margin: 0;
+  padding: 0;
+}
+
+footer.developer-credit .developer-credit__role {
+  margin-top: 2px !important;
+}
+
+footer.developer-credit .developer-credit__portfolio {
+  margin-top: 6px !important;
+}
+
+footer.developer-credit .developer-credit__portfolio a {
+  padding: 4px 8px;
+}
+
+@media (max-width: 600px) {
+  footer.developer-credit {
+    padding: 12px 16px;
+  }
+
+  footer.developer-credit .developer-credit__role {
+    max-width: 36ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -622,7 +706,7 @@ footer.site-footer{
       <span class="divider" aria-hidden="true"></span>
       <div class="brand-text">
         <h2>Bachelor of Science in Exercise and Sport Sciences major in Fitness and Sports Management (BSESS-FSM)</h2>
-        <p>College of Human Development and Performance Sciences · Makato Campus, Aklan State University</p>
+        <p>College of Education and Human Development · Makato Campus, Aklan State University</p>
       </div>
     </div>
     <div class="masthead-actions no-print">
@@ -631,6 +715,10 @@ footer.site-footer{
         Print index
       </button>
       <a class="btn primary" href="#area-grid">Browse the 10 Areas</a>
+        <a class="btn programs-btn" href="index.html">
+        <img src="assets/images/program-logo.png" alt="" width="20" height="20" style="border-radius: 50%;">
+        <span>Programs</span>
+      </a>
     </div>
   </div>
 </header>
@@ -855,7 +943,6 @@ footer.site-footer{
     a.appendChild(meta);
     a.appendChild(track);
     a.appendChild(pctText);
-    a.appendChild(go);
     li.appendChild(a);
     return li;
   }
@@ -943,5 +1030,15 @@ footer.site-footer{
   }
 })();
 </script>
+
+  <!-- Your existing dashboard content ends above here. -->
+  <!-- Keep any existing script tags unchanged. -->
+
+  <footer class="developer-credit" aria-label="Developer credit">
+    <p class="developer-credit__name">
+      Built by: <strong>MARC BRYAN B. CICHON, MIT</strong>
+    </p>
+  </footer>
+
 </body>
 </html>
