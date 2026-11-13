@@ -1,0 +1,683 @@
+{
+  "program": "Bachelor of Science in Exercise and Sports Sciences",
+  "level": "Level I",
+  "people": {
+    "amelia-navejas": {
+      "name": "Dr. Amelia T. Navejas",
+      "designation": "",
+      "photo": ""
+    },
+    "florie-gonzaga": {
+      "name": "Dr. Florie May S. Gonzaga",
+      "designation": "",
+      "photo": ""
+    },
+    "warlen-alejandria": {
+      "name": "Dr. Warlen R. Alejandria",
+      "designation": "",
+      "photo": ""
+    },
+    "rene-fernando": {
+      "name": "Mr. Rene M. Fernando",
+      "designation": "",
+      "photo": ""
+    },
+    "johndale-reloj": {
+      "name": "Mr. Johndale I. Reloj",
+      "designation": "",
+      "photo": ""
+    },
+    "andrea-mae-ili": {
+      "name": "Ms. Andrea Mae Ili",
+      "designation": "",
+      "photo": ""
+    },
+    "ariane-tapar": {
+      "name": "Ms. Ariane Celine M. Tapar",
+      "designation": "",
+      "photo": ""
+    },
+    "aillyn-roselo": {
+      "name": "Prof. Aillyn C. Roselo",
+      "designation": "",
+      "photo": ""
+    },
+    "paul-saladar": {
+      "name": "Mr. Paul Robert M. Saladar",
+      "designation": "",
+      "photo": ""
+    },
+    "icee-ostan": {
+      "name": "Mrs. Icee Rose M. Ostan",
+      "designation": "",
+      "photo": ""
+    },
+    "rosario-molina": {
+      "name": "Dr. Rosario N. Molina",
+      "designation": "",
+      "photo": ""
+    },
+    "fanny-patricio": {
+      "name": "Dr. Ma. Fanny E. Patricio",
+      "designation": "",
+      "photo": ""
+    },
+    "mark-menez": {
+      "name": "Mr. Mark Anthony R. Menez",
+      "designation": "",
+      "photo": ""
+    },
+    "marivic-valentin": {
+      "name": "Ms. Marivic G. Valentin",
+      "designation": "",
+      "photo": ""
+    },
+    "jeric-tersol": {
+      "name": "Mr. Jeric D. Tersol",
+      "designation": "",
+      "photo": ""
+    },
+    "marianne-matores": {
+      "name": "Mrs. Marianne R. Matores",
+      "designation": "",
+      "photo": ""
+    },
+    "margie-tipan": {
+      "name": "Dr. Margie C. Tipan",
+      "designation": "",
+      "photo": ""
+    },
+    "arvin-arnilla": {
+      "name": "Dr. Arvin A. Arnilla",
+      "designation": "",
+      "photo": ""
+    },
+    "bea-masigon": {
+      "name": "Mrs. Bea T. Masigon",
+      "designation": "",
+      "photo": ""
+    },
+    "nino-iguban": {
+      "name": "Mr. Nino Jericko A. Iguban",
+      "designation": "",
+      "photo": ""
+    },
+    "michelle-bautista": {
+      "name": "Ms. Michelle M. Bautista",
+      "designation": "",
+      "photo": ""
+    },
+    "cherry-aurellio": {
+      "name": "Mrs. Cherry Ann U. Aurellio",
+      "designation": "",
+      "photo": ""
+    },
+    "psyche-conanan": {
+      "name": "Ms. Psyche Joanne Xenethea T. Conanan",
+      "designation": "",
+      "photo": ""
+    },
+    "divina-demanuel": {
+      "name": "Mrs. Divina P. De Manuel",
+      "designation": "",
+      "photo": ""
+    },
+    "mengiella-salivio": {
+      "name": "Ms. Mengiella Jossa P. Salivio",
+      "designation": "",
+      "photo": ""
+    },
+    "analyn-perra": {
+      "name": "Mrs. Analyn M. Perra",
+      "designation": "",
+      "photo": ""
+    },
+    "marc-cichon": {
+      "name": "Mr. Marc Bryan B. Cichon",
+      "designation": "",
+      "photo": ""
+    },
+    "faith-acoritay": {
+      "name": "Ms. Faith Acoritay",
+      "designation": "",
+      "photo": ""
+    },
+    "anne-samar": {
+      "name": "Dr. Anne Cicely R. Samar",
+      "designation": "",
+      "photo": ""
+    },
+    "john-dale-reloj": {
+      "name": "John Dale Reloj",
+      "designation": "",
+      "photo": ""
+    },
+    "krizza-parum": {
+      "name": "Ms. Krizza Nica B. Parum",
+      "designation": "",
+      "photo": ""
+    },
+    "jeff-evangelio": {
+      "name": "Mr. Jeff Keffier C. Evangelio",
+      "designation": "",
+      "photo": ""
+    },
+    "therese-sarabia": {
+      "name": "Dr. Therese Jean A. Sarabia",
+      "designation": "",
+      "photo": ""
+    },
+    "dennis-crispino": {
+      "name": "Mr. Dennis B. Crispino",
+      "designation": "",
+      "photo": ""
+    },
+    "lyka-casidsid": {
+      "name": "Ms. Lyka Isabelle P. Casidsid",
+      "designation": "",
+      "photo": ""
+    },
+    "bella-tapar": {
+      "name": "Mrs. Bella M. Tapar",
+      "designation": "",
+      "photo": ""
+    },
+    "andrea-mae-r-ili": {
+      "name": "Ms. Andrea Mae R. Ili",
+      "designation": "",
+      "photo": ""
+    },
+    "john-mark-majan": {
+      "name": "John Mark A. Majan",
+      "designation": "",
+      "photo": ""
+    },
+    "diana-labajo": {
+      "name": "Ms. Diana V. Labajo",
+      "designation": "",
+      "photo": ""
+    },
+    "ivy-puod": {
+      "name": "Mrs. Ivy T. Pu-od",
+      "designation": "",
+      "photo": ""
+    },
+    "maricel-constantino": {
+      "name": "Mrs. Maricel T. Constantino",
+      "designation": "",
+      "photo": ""
+    },
+    "wendelyn-menez": {
+      "name": "Ms. Wendelyn T. Menez",
+      "designation": "",
+      "photo": ""
+    },
+    "joy-santiago": {
+      "name": "Ms. Joy Johanna L. Santiago",
+      "designation": "",
+      "photo": ""
+    },
+    "sofia-timonera": {
+      "name": "Ms. Sofia I. Timonera",
+      "designation": "",
+      "photo": ""
+    },
+    "andrea-navarra": {
+      "name": "Ms. Andrea D. Navarra",
+      "designation": "",
+      "photo": ""
+    },
+    "janine-reporen": {
+      "name": "Ms. Janine R. Reporen",
+      "designation": "",
+      "photo": ""
+    },
+    "arvie-gan": {
+      "name": "Ms. Arvie C. Gan",
+      "designation": "",
+      "photo": ""
+    },
+    "cynthia-casalmer": {
+      "name": "Ms. Cynthia D. Casalmer",
+      "designation": "",
+      "photo": ""
+    }
+  },
+  "leadership": [
+    {
+      "person": "amelia-navejas",
+      "role": "Overall Chairman"
+    },
+    {
+      "person": "florie-gonzaga",
+      "role": "Co-Chairman"
+    },
+    {
+      "person": "warlen-alejandria",
+      "role": "Member"
+    }
+  ],
+  "technical": [
+    {
+      "person": "rene-fernando",
+      "role": "Technical, Layout & Document Control"
+    },
+    {
+      "person": "johndale-reloj",
+      "role": "Technical, Layout & Document Control"
+    },
+    {
+      "person": "andrea-mae-ili",
+      "role": "Technical, Layout & Document Control"
+    }
+  ],
+  "areas": [
+    {
+      "number": 1,
+      "roman": "I",
+      "title": "Vision, Mission, Goals and Objectives",
+      "weight": null,
+      "chair": "warlen-alejandria",
+      "members": [
+        "ariane-tapar",
+        "aillyn-roselo",
+        "paul-saladar"
+      ],
+      "parameters": [
+        {
+          "code": "A",
+          "title": "Statement of Vision, Mission, Goals and Objectives"
+        },
+        {
+          "code": "B",
+          "title": "Dissemination and Acceptability"
+        }
+      ],
+      "sourcePage": 1
+    },
+    {
+      "number": 2,
+      "roman": "II",
+      "title": "Faculty",
+      "weight": 8,
+      "chair": "florie-gonzaga",
+      "members": [
+        "icee-ostan",
+        "rosario-molina",
+        "fanny-patricio",
+        "mark-menez",
+        "marivic-valentin",
+        "jeric-tersol"
+      ],
+      "parameters": [
+        {
+          "code": "A",
+          "title": "Academic Qualifications and Professional Experience"
+        },
+        {
+          "code": "B",
+          "title": "Recruitment, Selection and Orientation"
+        },
+        {
+          "code": "C",
+          "title": "Faculty Adequacy and Loading"
+        },
+        {
+          "code": "D",
+          "title": "Rank and Tenure"
+        },
+        {
+          "code": "E",
+          "title": "Faculty Development"
+        },
+        {
+          "code": "F",
+          "title": "Professional Performance and Scholarly Works"
+        }
+      ],
+      "sourcePage": 1
+    },
+    {
+      "number": 3,
+      "roman": "III",
+      "title": "Curriculum and Instruction",
+      "weight": 8,
+      "chair": "marianne-matores",
+      "members": [
+        "margie-tipan",
+        "arvin-arnilla",
+        "florie-gonzaga",
+        "bea-masigon",
+        "nino-iguban",
+        "michelle-bautista"
+      ],
+      "parameters": [
+        {
+          "code": "A",
+          "title": "Curriculum and Program of Studies"
+        },
+        {
+          "code": "B",
+          "title": "Instructional Processes, Methodologies and Learning Opportunities"
+        },
+        {
+          "code": "C",
+          "title": "Assessment of Academic Performance"
+        },
+        {
+          "code": "D",
+          "title": "Management of Learning"
+        },
+        {
+          "code": "E",
+          "title": "Graduation Requirements"
+        },
+        {
+          "code": "F",
+          "title": "Administrative Support for Effective Instruction"
+        }
+      ],
+      "sourcePage": 2
+    },
+    {
+      "number": 4,
+      "roman": "IV",
+      "title": "Support to Students",
+      "weight": 8,
+      "chair": "cherry-aurellio",
+      "members": [
+        "psyche-conanan",
+        "divina-demanuel",
+        "mengiella-salivio",
+        "analyn-perra",
+        "marc-cichon",
+        "faith-acoritay"
+      ],
+      "parameters": [
+        {
+          "code": "A",
+          "title": "Student Services Program (SSP)"
+        },
+        {
+          "code": "B",
+          "title": "Student Welfare"
+        },
+        {
+          "code": "C",
+          "title": "Student Development"
+        },
+        {
+          "code": "D",
+          "title": "Institutional Student Program and Services"
+        },
+        {
+          "code": "E",
+          "title": "Research, Monitoring and Evaluation"
+        }
+      ],
+      "sourcePage": 2
+    },
+    {
+      "number": 5,
+      "roman": "V",
+      "title": "Research",
+      "weight": 5,
+      "chair": "anne-samar",
+      "members": [
+        "john-dale-reloj",
+        "krizza-parum",
+        "jeff-evangelio"
+      ],
+      "parameters": [
+        {
+          "code": "A",
+          "title": "Priorities and Relevance"
+        },
+        {
+          "code": "B",
+          "title": "Funding and Other Resources"
+        },
+        {
+          "code": "C",
+          "title": "Implementation, Monitoring, Evaluation and Utilization of Research Results and Outputs"
+        },
+        {
+          "code": "D",
+          "title": "Publication and Dissemination"
+        }
+      ],
+      "sourcePage": 3
+    },
+    {
+      "number": 6,
+      "roman": "VI",
+      "title": "Extension and Community Involvement",
+      "weight": 4,
+      "chair": "therese-sarabia",
+      "members": [
+        "krizza-parum",
+        "dennis-crispino"
+      ],
+      "parameters": [
+        {
+          "code": "A",
+          "title": "Priorities and Relevance"
+        },
+        {
+          "code": "B",
+          "title": "Planning, Implementation, Monitoring and Evaluation"
+        },
+        {
+          "code": "C",
+          "title": "Funding and Other Resources"
+        },
+        {
+          "code": "D",
+          "title": "Community Involvement and Participation in the Institution’s Activities"
+        }
+      ],
+      "sourcePage": 3
+    },
+    {
+      "number": 7,
+      "roman": "VII",
+      "title": "Library",
+      "weight": 5,
+      "chair": "lyka-casidsid",
+      "members": [
+        "bella-tapar",
+        "andrea-mae-r-ili"
+      ],
+      "parameters": [
+        {
+          "code": "A",
+          "title": "Administration"
+        },
+        {
+          "code": "B",
+          "title": "Administrative Staff"
+        },
+        {
+          "code": "C",
+          "title": "Collection Development, Organization and Preservation"
+        },
+        {
+          "code": "D",
+          "title": "Service and Utilization"
+        },
+        {
+          "code": "E",
+          "title": "Physical Set-up and Facilities"
+        },
+        {
+          "code": "F",
+          "title": "Financial Support"
+        },
+        {
+          "code": "G",
+          "title": "Linkages"
+        }
+      ],
+      "sourcePage": 4
+    },
+    {
+      "number": 8,
+      "roman": "VIII",
+      "title": "Physical Plant and Facilities",
+      "weight": 3,
+      "chair": "john-mark-majan",
+      "members": [
+        "diana-labajo",
+        "ivy-puod",
+        "dennis-crispino"
+      ],
+      "parameters": [
+        {
+          "code": "A",
+          "title": "Campus"
+        },
+        {
+          "code": "B",
+          "title": "Buildings"
+        },
+        {
+          "code": "C",
+          "title": "Classrooms"
+        },
+        {
+          "code": "D",
+          "title": "Offices, Staff and Function Rooms"
+        },
+        {
+          "code": "E",
+          "title": "Assembly and Athletic Facilities"
+        },
+        {
+          "code": "F",
+          "title": "Medical and Dental Clinic"
+        },
+        {
+          "code": "G",
+          "title": "Student Center"
+        },
+        {
+          "code": "H",
+          "title": "Food Services"
+        },
+        {
+          "code": "I",
+          "title": "Accreditation Center"
+        },
+        {
+          "code": "J",
+          "title": "Housing"
+        }
+      ],
+      "sourcePage": 4
+    },
+    {
+      "number": 9,
+      "roman": "IX",
+      "title": "Laboratories",
+      "weight": 4,
+      "chair": "rene-fernando",
+      "members": [
+        "diana-labajo",
+        "maricel-constantino",
+        "dennis-crispino"
+      ],
+      "parameters": [
+        {
+          "code": "A",
+          "title": "Laboratories"
+        },
+        {
+          "code": "B",
+          "title": "Equipment and Supply"
+        },
+        {
+          "code": "C",
+          "title": "Maintenance"
+        },
+        {
+          "code": "D",
+          "title": "Special Provision"
+        }
+      ],
+      "sourcePage": 5
+    },
+    {
+      "number": 10,
+      "roman": "X",
+      "title": "Administration",
+      "weight": 5,
+      "chair": "wendelyn-menez",
+      "members": [
+        "joy-santiago",
+        "sofia-timonera",
+        "andrea-navarra",
+        "janine-reporen",
+        "arvie-gan",
+        "cynthia-casalmer"
+      ],
+      "parameters": [
+        {
+          "code": "A",
+          "title": "Organization"
+        },
+        {
+          "code": "B",
+          "title": "Academic Administration"
+        },
+        {
+          "code": "C",
+          "title": "Student Administration"
+        },
+        {
+          "code": "D",
+          "title": "Financial Management"
+        },
+        {
+          "code": "E",
+          "title": "Supply Management"
+        },
+        {
+          "code": "F",
+          "title": "Records Management"
+        },
+        {
+          "code": "G",
+          "title": "Institution Planning and Development"
+        },
+        {
+          "code": "H",
+          "title": "Performance of Administrative Personnel"
+        }
+      ],
+      "sourcePage": 5
+    }
+  ],
+  "transcriptionNotes": [
+    "Area I’s weight is shown as dashes in the source and has been left unspecified.",
+    "Area II lists six parameters (A–F) on the committee sheet. This directory does not replace or amend the accreditation instrument.",
+    "The source uses Johndale I. Reloj in the local task force and John Dale Reloj in Area V; these have not been automatically merged.",
+    "The source uses Andrea Mae Ili in the local task force and Andrea Mae R. Ili in Area VII; these have not been automatically merged.",
+    "Area IX names the chair as Mr. Rene Fernando. The profile uses the fuller Mr. Rene M. Fernando from the local task force; verify this association before publication.",
+    "The Area IX source groups members under “Member / Student Assistants” without individual role assignments; no individual student-assistant status is inferred.",
+    "Source names are transcriptions from scans; confirm spellings before public release. Portraits and institutional designations are intentionally blank."
+  ],
+  "designReferences": [
+    {
+      "title": "Stony Brook University · Profile cards",
+      "url": "https://www.stonybrook.edu/websupport/components/data-feeds-people/people-cards.html"
+    },
+    {
+      "title": "Stanford University · Leadership",
+      "url": "https://www.stanford.edu/about/leadership-and-governance"
+    },
+    {
+      "title": "Stanford Woods · Leadership and staff",
+      "url": "https://woods.stanford.edu/people/leadership-and-staff"
+    }
+  ]
+}
