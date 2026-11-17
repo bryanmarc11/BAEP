@@ -642,6 +642,28 @@ footer.developer-credit .developer-credit__portfolio a {
 @media(max-width:650px){.profiles,.workforce-section:nth-child(-n+2) .profiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.chairman{grid-column:1/-1;width:min(100%,22rem);justify-self:center}.portrait{height:104px;width:104px}.chairman .portrait{height:168px;width:168px}.profile{padding:1.5rem .75rem}.profile h3{font-size:.9rem}.masthead .wrap{gap:.75rem}.brand-lockup{flex-basis:100%}.brand-text h2{font-size:.8rem}.brand-lockup .divider{height:52px}.workforce-hero{background-position:60% center}.workforce-hero .wrap{padding-block:2.5rem}}
 @media(max-width:340px){.profiles,.workforce-section:nth-child(-n+2) .profiles{grid-template-columns:1fr}}
 @media print{.masthead-actions{display:none}.workforce-hero{print-color-adjust:exact}.profile{break-inside:avoid}.workforce-section{break-inside:auto}}
+/* Technical & Documentation Team: four profiles per row */
+#committee-1 .profiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+}
+
+/* Tablet: two profiles per row */
+@media (max-width: 1000px) {
+  #committee-1 .profiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Small phones: one profile per row */
+@media (max-width: 480px) {
+  #committee-1 .profiles {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="masthead">
   <div class="wrap">
     <div class="brand-lockup">
@@ -722,12 +744,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Michelle M. Bautista
      </h3>
      <p class="designation">
-      Chair, Quality Assurance
+      Chairperson, Quality Assurance
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Dr. Warlen R. Alejandria" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+          <img
+      src="assets/portraits/warlen.jpg"
+      alt="Dr. Warlen R. Alejandria"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -736,68 +765,128 @@ footer.developer-credit .developer-credit__portfolio a {
       Dr. Warlen R. Alejandria
      </h3>
      <p class="designation">
-      BSESS Program Chairperson
+      Chairperson, BSESS Program
      </p>
     </article>
    </div>
   </section>
   <section class="workforce-section" id="committee-1">
-   <h2>
-    Technical &amp; Documentation Team
-   </h2>
-   <div class="profiles">
+  <h2>Technical, Layout &amp; Documentation Team</h2>
+
+  <div class="profiles">
+
+    <!-- Profile 1 -->
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Rene M. Fernando" class="portrait" role="img">
-      <!-- Insert portrait img here -->
-     </div>
-     <p class="role">
-      Technical, Layout &amp; Document Control
-     </p>
-     <h3>
-      Mr. Rene M. Fernando
-     </h3>
-     <p class="designation">
-      <!-- Insert designation here -->
-     </p>
+      <div class="portrait">
+        <img
+          src="assets/portraits/rene.jpg"
+          alt="Mr. Rene M. Fernando"
+          width="100"
+          height="100"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
+
+      <p class="role">
+        Technical, Layout &amp; Document Control
+      </p>
+
+      <h3>Mr. Rene M. Fernando</h3>
+
+      <p class="designation">
+        Chairperson, ICT
+      </p>
     </article>
+
+    <!-- Profile 2 -->
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Johndale I. Reloj" class="portrait" role="img">
-      <!-- Insert portrait img here -->
-     </div>
-     <p class="role">
-      Technical, Layout &amp; Document Control
-     </p>
-     <h3>
-      Mr. Johndale I. Reloj
-     </h3>
-     <p class="designation">
-      <!-- Insert designation here -->
-     </p>
+      <div class="portrait">
+        <img
+          src="assets/portraits/johndale.jpg"
+          alt="Mr. Johndale I. Reloj"
+          width="100"
+          height="100"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
+
+      <p class="role">
+        Technical, Layout &amp; Document Control
+      </p>
+
+      <h3>Mr. Johndale I. Reloj</h3>
+
+      <p class="designation">
+        Administrative Aide VI 
+      </p>
     </article>
+
+    <!-- Profile 3 -->
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Andrea Mae R. Ili" class="portrait" role="img">
-      <!-- Insert portrait img here -->
-     </div>
-     <p class="role">
-      Technical, Layout &amp; Document Control
-     </p>
-     <h3>
-      Ms. Andrea Mae R. Ili
-     </h3>
-     <p class="designation">
-      <!-- Insert designation here -->
-     </p>
+      <div class="portrait">
+        <img
+          src="assets/portraits/diana.jpg"
+          alt="Ms. Diana V. Labajo"
+          width="100"
+          height="100"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
+
+      <p class="role">
+        Technical, Layout &amp; Document Control
+      </p>
+
+      <h3>Ms. Diana V. Labajo</h3>
+
+      <p class="designation">
+        Supply Officer I
     </article>
-   </div>
-  </section>
+
+    <!-- Profile 4: replace the placeholder details -->
+    <article class="profile">
+      <div class="portrait">
+        <img
+          src="assets/portraits/andrea.jpg"
+          alt="Ms. Andrea Mae R. Ili"
+          width="100"
+          height="100"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
+
+      <p class="role">
+        Technical, Layout &amp; Document Control
+      </p>
+
+      <h3>Ms. Andrea Mae R. Ili</h3>
+
+      <p class="designation">
+        Administrative Aide VI
+      </p>
+    </article>
+
+  </div>
+</section>
   <section class="workforce-section" id="committee-2">
    <h2>
     Area I · Vision, Mission, Goals and Objectives
    </h2>
    <div class="profiles">
     <article class="profile chairman">
-     <div aria-label="Portrait not yet provided for Dr. Warlen R. Alejandria" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+          <img
+      src="assets/portraits/warlen.jpg"
+      alt="Dr. Warlen R. Alejandria"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Chairman
@@ -806,12 +895,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Dr. Warlen R. Alejandria
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Associate Professor V
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Ariane Celine M. Tapar" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+      <div class="portrait" role="img">
+        <img
+      src="assets/portraits/ac.jpg"
+      alt="Ms. Ariane Celine M. Tapar"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -820,12 +916,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Ariane Celine M. Tapar
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Asst. II 
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Prof. Aillyn C. Roselo" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/aillyn.jpg"
+      alt="Prof. Aillyn C. Roselo"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -834,12 +937,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Prof. Aillyn C. Roselo
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Assistant Professor IV
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Paul Robert M. Saladar" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+      <div class="portrait" role="img">
+        <img
+      src="assets/portraits/paul.jpg"
+      alt="Mr. Paul Robert M. Saladar"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -848,7 +958,7 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. Paul Robert M. Saladar
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Instructor I
      </p>
     </article>
    </div>
@@ -859,22 +969,57 @@ footer.developer-credit .developer-credit__portfolio a {
    </h2>
    <div class="profiles">
     <article class="profile chairman">
-     <div aria-label="Portrait not yet provided for Dr. Florie May S. Gonzaga" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/bea.jpg"
+      alt="Mrs. Bea T. Masigon"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Chairman
      </p>
      <h3>
-      Dr. Florie May S. Gonzaga
+      Mrs. Bea T. Masigon
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Instructor I
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mrs. Icee Rose M. Ostan" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/love.jpg"
+      alt="Dr. Florie May S. Gonzaga"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
+     </div>
+     <p class="role">
+      Member
+     </p>
+     <h3>
+      Dr. Florie May S. Gonzaga
+     </h3>
+     <p class="designation">
+      Associate Professor II
+     </p>
+    </article>
+    <article class="profile">
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/icee.jpg"
+      alt="Mrs. Icee Rose M. Ostan"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -883,26 +1028,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mrs. Icee Rose M. Ostan
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      HRMO II
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Dr. Rosario N. Molina" class="portrait" role="img">
-      <!-- Insert portrait img here -->
-     </div>
-     <p class="role">
-      Member
-     </p>
-     <h3>
-      Dr. Rosario N. Molina
-     </h3>
-     <p class="designation">
-      <!-- Insert designation here -->
-     </p>
-    </article>
-    <article class="profile">
-     <div aria-label="Portrait not yet provided for Dr. Ma. Fanny E. Patricio" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/fanny.jpg"
+      alt="Dr. Ma. Fanny E. Patricio"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -911,26 +1049,40 @@ footer.developer-credit .developer-credit__portfolio a {
       Dr. Ma. Fanny E. Patricio
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Associate Professor IV
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Mark Anthony R. Menez" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+    <div class="portrait" role="img">
+        <img
+      src="assets/portraits/rosario.jpg"
+      alt="Dr. Rosario N. Molina"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
      </p>
      <h3>
-      Mr. Mark Anthony R. Meñez
+      Dr. Rosario N. Molina
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Associate Professor III
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Marivic G. Valentin" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+    <div class="portrait" role="img">
+        <img
+      src="assets/portraits/mavs.jpg"
+      alt="Ms. Marivic G. Valentin"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -939,12 +1091,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Marivic G. Valentin
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Instructor I
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Jeric D. Tersol" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+    <div class="portrait" role="img">
+        <img
+      src="assets/portraits/jeric.jpg"
+      alt="Mr. Jeric D. Tersol"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -953,7 +1112,7 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. Jeric D. Tersol
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Instructor I
      </p>
     </article>
    </div>
@@ -964,8 +1123,15 @@ footer.developer-credit .developer-credit__portfolio a {
    </h2>
    <div class="profiles">
     <article class="profile chairman">
-     <div aria-label="Portrait not yet provided for Mrs. Marianne R. Matores" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+    <div class="portrait" role="img">
+        <img
+      src="assets/portraits/yan.jpg"
+      alt="Mrs. Marianne R. Matores"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Chairman
@@ -974,26 +1140,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mrs. Marianne R. Matores
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Instructor I
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Dr. Margie C. Tipan" class="portrait" role="img">
-      <!-- Insert portrait img here -->
-     </div>
-     <p class="role">
-      Member
-     </p>
-     <h3>
-      Dr. Margie C. Tipan
-     </h3>
-     <p class="designation">
-      <!-- Insert designation here -->
-     </p>
-    </article>
-    <article class="profile">
-     <div aria-label="Portrait not yet provided for Dr. Arvin A. Arnilla" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+    <div class="portrait" role="img">
+        <img
+      src="assets/portraits/arvin.jpg"
+      alt="Dr. Arvin Kim A. Arnilla"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1002,40 +1161,82 @@ footer.developer-credit .developer-credit__portfolio a {
       Dr. Arvin Kim A. Arnilla
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Professor VI
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Dr. Florie May S. Gonzaga" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/margie.jpg"
+      alt="Dr. Margie C. Tipan"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
      </p>
      <h3>
-      Dr. Florie May S. Gonzaga
+      Dr. Margie C. Tipan
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Associate Professor V
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mrs. Bea T. Masigon" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/warlen.jpg"
+      alt="Dr. Warlen R. Alejandria"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
      </p>
      <h3>
-      Mrs. Bea T. Masigon
+      Dr. Warlen R. Alejandria
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Associate Professor V
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Nino Jericko A. Iguban" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/myra.jpg"
+      alt="Ms. Myra I. Relator"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
+     </div>
+     <p class="role">
+      Member
+     </p>
+     <h3>
+      Ms. Myra I. Relator
+     </h3>
+     <p class="designation">
+      Instructor I
+     </p>
+    </article>
+    <article class="profile">
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/nino.jpg"
+      alt="Mr. Niño Jericko A. Iguban"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1044,21 +1245,28 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. Niño Jericko A. Iguban
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Contract of Service
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Michelle M. Bautista" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/mardina.jpg"
+      alt="Ms. Mardina P. Taglay"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
      </p>
      <h3>
-      Ms. Michelle M. Bautista
+      Ms. Mardina P. Taglay
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Contract of Service
      </p>
     </article>
    </div>
@@ -1069,8 +1277,15 @@ footer.developer-credit .developer-credit__portfolio a {
    </h2>
    <div class="profiles">
     <article class="profile chairman">
-     <div aria-label="Portrait not yet provided for Mrs. Cherry Ann U. Aurellio" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/cherry.jpg"
+      alt="Ms. Cherry Ann U. Aurellio"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Chairman
@@ -1079,12 +1294,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mrs. Cherry Ann U. Aurellio
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Insructor I
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Psyche Joanne Xenethea T. Conanan" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/sayk.jpg"
+      alt="Ms. Psyche Joanne Xenethea T. Conanan"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1093,12 +1315,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Psyche Joanne Xenethea T. Conanan
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Instructor I
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mrs. Divina P. De Manuel" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/divine.jpg"
+      alt="Ms. Divina P. De Manuel"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1107,12 +1336,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mrs. Divina P. De Manuel
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      HRMO I
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Mengiella Jossa P. Salivio" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/meng.jpg"
+      alt="Ms. Mengiella Jossa P. Salivio"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1121,12 +1357,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Mengiella Jossa P. Salivio
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Disbursing Officer II
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mrs. Analyn M. Perra" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/analyn.jpg"
+      alt="Mrs. Analyn M. Perra"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1135,12 +1378,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mrs. Analyn M. Perra
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Cashier II
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Marc Bryan B. Cichon" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/bryan.jpg"
+      alt="Mr. Marc Bryan B. Cichon"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1149,12 +1399,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. Marc Bryan B. Cichon
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Aide VI
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Faith Acoritay" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/faith.jpg"
+      alt="Ms. Faith T. Acoritay"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1163,7 +1420,7 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Faith T. Acoritay
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Job Order Clerk
      </p>
     </article>
    </div>
@@ -1174,8 +1431,15 @@ footer.developer-credit .developer-credit__portfolio a {
    </h2>
    <div class="profiles">
     <article class="profile chairman">
-     <div aria-label="Portrait not yet provided for Dr. Anne Cicely R. Samar" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/anne.png"
+      alt="Dr. Anne Cicely R. Samar"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Chairman
@@ -1184,12 +1448,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Dr. Anne Cicely R. Samar
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Associate Professor III
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for John Dale Reloj" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/johndale.jpg"
+      alt="Mr. Johndale I. Reloj"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1198,12 +1469,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. Johndale I. Reloj
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Aide VI 
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Krizza Nica B. Parum" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/krizza.jpg"
+      alt="Ms. Krizza Nica B. Parum"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1212,12 +1490,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Krizza Nica B. Parum
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Aide VI
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Jeff Keffier C. Evangelio" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/jeff.jpg"
+      alt="Mr. Jeff Keffier C. Evangelio"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1226,7 +1511,7 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. Jeff Keffier C. Evangelio
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Contract of Service
      </p>
     </article>
    </div>
@@ -1237,8 +1522,15 @@ footer.developer-credit .developer-credit__portfolio a {
    </h2>
    <div class="profiles">
     <article class="profile chairman">
-     <div aria-label="Portrait not yet provided for Dr. Therese Jean A. Sarabia" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/therese.jpg"
+      alt="Dr. Therese Jean A. Sarabia"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Chairman
@@ -1247,12 +1539,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Dr. Therese Jean A. Sarabia
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Associate Professor V
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Krizza Nica B. Parum" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/krizza.JPG"
+      alt="Ms. Krizza Nica B. Parum"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1261,12 +1560,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Krizza Nica B. Parum
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Aide VI
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Dennis B. Crispino" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/dennis.JPG"
+      alt="Mr. Dennis B. Crispino"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1275,7 +1581,7 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. Dennis B. Crispino
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Aide VI
      </p>
     </article>
    </div>
@@ -1286,8 +1592,15 @@ footer.developer-credit .developer-credit__portfolio a {
    </h2>
    <div class="profiles">
     <article class="profile chairman">
-     <div aria-label="Portrait not yet provided for Ms. Lyka Isabelle P. Casidsid" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/lyka.JPG"
+      alt="Ms. Lyka Isabelle P. Casidsid"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Chairman
@@ -1296,12 +1609,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Lyka Isabelle P. Casidsid
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      COS - Librarian
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mrs. Bella M. Tapar" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/bella.JPG"
+      alt="Ms. Bella M. Tapar"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1310,12 +1630,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mrs. Bella M. Tapar
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Associate Professor V
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Andrea Mae R. Ili" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/andrea.jpg"
+      alt="Ms. Andrea Mae R. Ili"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1324,7 +1651,7 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Andrea Mae R. Ili
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Aide VI
      </p>
     </article>
    </div>
@@ -1335,8 +1662,15 @@ footer.developer-credit .developer-credit__portfolio a {
    </h2>
    <div class="profiles">
     <article class="profile chairman">
-     <div aria-label="Portrait not yet provided for John Mark A. Majan" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/majan.jpg"
+      alt="Mr. John Mark A. Majan"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Chairman
@@ -1345,12 +1679,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. John Mark A. Majan
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Assistant Professor IV
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Diana V. Labajo" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/diana.jpg"
+      alt="Ms. Diana V. Labajo"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1359,26 +1700,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Diana V. Labajo
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Supply Officer I
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mrs. Ivy T. Pu-od" class="portrait" role="img">
-      <!-- Insert portrait img here -->
-     </div>
-     <p class="role">
-      Member
-     </p>
-     <h3>
-      Mrs. Ivy T. Pu-od
-     </h3>
-     <p class="designation">
-      <!-- Insert designation here -->
-     </p>
-    </article>
-    <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Dennis B. Crispino" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/dennis.jpg"
+      alt="Mr. Dennis B. Crispino"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1387,9 +1721,9 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. Dennis B. Crispino
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Aide VI
      </p>
-    </article>
+    
    </div>
   </section>
   <section class="workforce-section" id="committee-10">
@@ -1398,8 +1732,15 @@ footer.developer-credit .developer-credit__portfolio a {
    </h2>
    <div class="profiles">
     <article class="profile chairman">
-     <div aria-label="Portrait not yet provided for Mr. Rene Fernando" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/rene.jpg"
+      alt="Mr. Rene M. Fernando"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Chairman
@@ -1408,12 +1749,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. Rene M. Fernando
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Officer III
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Diana V. Labajo" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/diana.jpg"
+      alt="Ms. Diana V. Labajo"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1422,12 +1770,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Diana V. Labajo
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Supply Officer I
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mrs. Maricel T. Constantino" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/maricel.png"
+      alt="Ms. Maricel T. Constantino"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1436,12 +1791,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Mrs. Maricel T. Constantino
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Property Custodian 
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Mr. Dennis B. Crispino" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/dennis.JPG"
+      alt="Mr. Dennis B. Crispino"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1450,7 +1812,7 @@ footer.developer-credit .developer-credit__portfolio a {
       Mr. Dennis B. Crispino
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Aide VI
      </p>
     </article>
    </div>
@@ -1461,8 +1823,15 @@ footer.developer-credit .developer-credit__portfolio a {
    </h2>
    <div class="profiles">
     <article class="profile chairman">
-     <div aria-label="Portrait not yet provided for Ms. Wendelyn T. Menez" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/wendy.jpg"
+      alt="Ms. Wendelyn T. Meñez"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Chairman
@@ -1471,12 +1840,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Wendelyn T. Meñez
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Officer V
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Joy Johanna L. Santiago" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/joy.JPG"
+      alt="Mrs. Joy Johanna L. Santiago"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1485,12 +1861,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Joy Johanna L. Santiago
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Budget Officer II
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Sofia I. Timonera" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/ping.JPG"
+      alt="Ms. Sofia I. Timonera"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1499,12 +1882,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Sofia I. Timonera
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Records Officer I
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Andrea D. Navarra" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/andrean.jpg"
+      alt="Ms. Andrea D. Navarra"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1513,12 +1903,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Andrea D. Navarra
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Accountant II
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Janine R. Reporen" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/jannine.jpg"
+      alt="Ms. Janine R. Reporen"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1527,12 +1924,19 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Janine R. Reporen
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Aide IV
      </p>
     </article>
     <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Arvie C. Gan" class="portrait" role="img">
-      <!-- Insert portrait img here -->
+     <div class="portrait" role="img">
+        <img
+      src="assets/portraits/arvie.jpg"
+      alt="Ms. Arvie C. Gan"
+      width="100"
+      height="100"
+      loading="lazy"
+      decoding="async"
+    >
      </div>
      <p class="role">
       Member
@@ -1541,26 +1945,17 @@ footer.developer-credit .developer-credit__portfolio a {
       Ms. Arvie C. Gan
      </h3>
      <p class="designation">
-      <!-- Insert designation here -->
+      Administrative Aide VI
      </p>
     </article>
-    <article class="profile">
-     <div aria-label="Portrait not yet provided for Ms. Cynthia D. Casalmer" class="portrait" role="img">
-      <!-- Insert portrait img here -->
-     </div>
-     <p class="role">
-      Member
-     </p>
-     <h3>
-      Ms. Cynthia D. Casalmer
-     </h3>
-     <p class="designation">
-      <!-- Insert designation here -->
-     </p>
-    </article>
+
    </div>
   </section>
  </div>
 </main>
-
+  <footer class="developer-credit" aria-label="Developer credit">
+    <p class="developer-credit__name">
+      Built and Developed by: <strong>MARC BRYAN B. CICHON, MIT</strong>
+    </p>
+  </footer>
 </body></html>
