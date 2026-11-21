@@ -699,6 +699,46 @@ footer.developer-credit .developer-credit__portfolio a {
   object-position: center;
 }
 
+/* BSESS promotional video */
+.promotional-video {
+  border-top: 1px solid var(--line, #E3DFD3);
+}
+
+.promotional-video-player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--line-strong, #CFC9B8);
+  border-radius: 14px;
+  background: #000;
+}
+
+.promotional-video-player iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.promotional-video-fallback {
+  margin-top: 1rem;
+  color: var(--ink-soft, #3A4A37);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.promotional-video-fallback a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media print {
+  .promotional-video-player {
+    display: none;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -753,7 +793,10 @@ footer.developer-credit .developer-credit__portfolio a {
             View Area I - X
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="btn on-dark" href="./bsess-workforce.html#/">BSESS Accreditation Workforce</a>
+          <div class="accreditation-profile-buttons" style="display:flex;flex-direction:column;align-items:flex-start;gap:.65rem;max-width:100%;">
+<a class="btn on-dark" href="./bsess-workforce.html#/">BSESS Accreditation Workforce</a>
+          <a class="btn on-dark" href="./accreditors-profile.html">Accreditor’s Profile</a>
+          </div>
         </div>
       </div>
 
@@ -790,6 +833,50 @@ footer.developer-credit .developer-credit__portfolio a {
       </div>
     </div>
     <ul class="area-grid" id="area-grid" role="list"></ul>
+  
+  </section>
+
+      <ul class="area-grid" id="area-grid" role="list"></ul>
+  </section>
+  <section
+    class="section promotional-video"
+    id="promotional-video"
+    aria-labelledby="promotional-video-heading"
+  >
+    <div class="section-head">
+      <div>
+        <h2 id="promotional-video-heading">
+          Bachelor of Science in Exercise and Sports Sciences - Promotional Video
+        </h2>
+        <p>
+          Discover the Bachelor of Science in Exercise and Sports
+          Sciences program at Aklan State University, Makato Campus.
+        </p>
+      </div>
+    </div>
+
+    <div class="promotional-video-player">
+      <iframe
+        src="https://drive.google.com/file/d/1ZfDBU60iE41CvPZbWk_n_G8P_J_WrilX/preview"
+        title="BSESS Promotional Video"
+        width="1280"
+        height="720"
+        loading="lazy"
+        allow="fullscreen"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <p class="promotional-video-fallback">
+      Video not loading?
+      <a
+        href="https://drive.google.com/file/d/1ZfDBU60iE41CvPZbWk_n_G8P_J_WrilX/view"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Watch the promotional video on Google Drive
+      </a>.
+    </p>
   </section>
 
   <section class="purpose-strip" id="purpose" aria-labelledby="purpose-heading">
