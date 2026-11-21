@@ -12,15 +12,49 @@
 .drive-folder-link:hover { background:rgba(11,95,191,.08); }
 .drive-folder-link:focus-visible { outline:3px solid var(--focus,#0b5fbf); outline-offset:2px; }
 .drive-folder-link[aria-disabled="true"] { opacity:.6; cursor:not-allowed; }
+</style><style id="workforce-masthead-styles">
+/* Workforce header only. */
+header.masthead { position:relative; inset:auto; height:auto; width:100%; padding:0; background:#152417; color:#ede9da; border-bottom:1px solid #3a4b2b; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; }
+.masthead * { box-sizing:border-box; }
+.masthead .wrap { width:100%; max-width:1240px; margin:0 auto; padding:1.1rem 1.25rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+.masthead .brand-lockup { display:flex; align-items:center; gap:.85rem; min-width:0; flex:1 1 320px; }
+.masthead .brand-lockup > picture { display:block; flex:0 0 52px; width:52px; height:52px; }
+.masthead .brand-lockup > picture img { display:block; width:100%; height:100%; object-fit:contain; }
+.masthead .divider { width:1px; height:40px; background:#3a4b2b; flex-shrink:0; }
+.masthead .brand-text h2 { margin:0; font-size:.95rem; font-weight:700; color:#ffae66; letter-spacing:.01em; line-height:1.4; }
+.masthead .brand-text p { margin:.1rem 0 0; font-size:.78rem; color:#bebba8; line-height:1.5; }
+.masthead .masthead-actions { display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
+.masthead .btn { position:static; display:inline-flex; align-items:center; gap:.4rem; min-height:44px; padding:.55rem 1rem; border-radius:10px; border:1px solid #3a4b2b; background:#1c2b1a; color:#ede9da; font:600 .875rem/1.5 "Segoe UI",Arial,sans-serif; text-decoration:none; cursor:pointer; }
+.masthead .btn:hover { background:#263c25; border-color:#ffae66; }
+@media(max-width:650px) { .masthead .brand-text h2 { font-size:.8rem; } }
+@media print { .masthead .masthead-actions { display:none; } }
 </style></head>
 <body data-area-id="area-9">
 <script>try{document.documentElement.classList.add("js");}catch(e){}</script>
 <a class="skip-link" href="#main-content">Skip to content</a>
-<header class="site-header">
-<button aria-controls="sidebar" aria-expanded="false" aria-label="Toggle area navigation menu" class="hamburger" id="hamburgerBtn">☰ Areas</button>
-<div>
-<h1>BSESS Accreditation Evidence Portal</h1>
-<span class="subtitle">Area IX: Laboratories</span>
+<header class="masthead">
+<div class="wrap">
+<div class="brand-lockup">
+<!-- ASU seal — vector mark, fixed aspect, never stretched, no colour filter -->
+<picture>
+<img alt="Official seal of Aklan State University" decoding="async" fetchpriority="high" height="52" src="assets/img/asu-seal-208.png" width="52"/>
+</picture>
+<span aria-hidden="true" class="divider">
+</span>
+<div class="brand-text">
+<h2>
+       Bachelor of Science in Exercise and Sport Sciences major in Fitness and Sports Management (BSESS-FSM)
+      </h2>
+<p>
+       College of Education and Human Development · Makato Campus, Aklan State University
+      </p>
+</div>
+</div>
+<div class="masthead-actions">
+<a class="btn" href="./bsess.html">
+      ← Evidence Portal
+     </a>
+</div>
 </div>
 </header>
 <div class="overlay" id="navOverlay"></div>
